@@ -15,7 +15,7 @@ const wa = require('./whatsapp');
 const insights = require('./insights');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 const UPLOAD_DIR = path.join(__dirname, 'uploads');
 
 // Secuirty functions
