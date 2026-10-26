@@ -1,0 +1,2342 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "scarlett.solomon",
+      "passwordHash": "$2a$10$5ZCKQCKFmU49SGamI0lVnOXJGuDQMtzMW0asXZFNwsb7zZqcLHNWa",
+      "data": {
+        "name": "Scarlett",
+        "links": {
+          "portal": "https://stadio.instructure.com/courses"
+        },
+        "timeline": [
+          {
+            "id": 1,
+            "label": "Re-register for modules",
+            "when": "Jan",
+            "done": true,
+            "date": "2026-01-01"
+          },
+          {
+            "id": 2,
+            "label": "Mid-year transcript to sponsor",
+            "when": "Jul",
+            "done": false,
+            "date": "2026-07-01"
+          },
+          {
+            "id": 6,
+            "label": "semester break",
+            "date": "2026-11-16",
+            "done": false
+          },
+          {
+            "id": 7,
+            "label": "Back to class",
+            "date": "2027-02-10",
+            "done": false
+          }
+        ],
+        "files": [
+          {
+            "id": 1,
+            "name": "Certified ID copy",
+            "expires": "2026-10-29",
+            "filename": null
+          },
+          {
+            "id": 2,
+            "name": "Matric results",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 3,
+            "name": "Official transcript",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 4,
+            "name": "Proof of residence",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 5,
+            "name": "Income affidavit",
+            "expires": "2026-12-07",
+            "filename": null
+          }
+        ],
+        "nsfasStep": 2,
+        "money": {
+          "tuition": 63000,
+          "owing": 100,
+          "accommodation": 2000,
+          "food": 1400,
+          "books": 2000
+        },
+        "tasks": [
+          {
+            "id": 1,
+            "title": "Statistics test",
+            "due": "2026-10-25",
+            "weight": 30,
+            "done": false
+          },
+          {
+            "id": 3,
+            "title": "Law quiz",
+            "due": "2026-10-30",
+            "weight": 10,
+            "done": false
+          },
+          {
+            "id": 4,
+            "title": "Maths test",
+            "due": "2026-10-30",
+            "weight": 10,
+            "done": false
+          },
+          {
+            "id": 5,
+            "title": "Maths assignment",
+            "due": "2026-10-10",
+            "weight": 10,
+            "done": true,
+            "completedAt": "2026-10-10",
+            "_demo": true
+          },
+          {
+            "id": 6,
+            "title": "Law reading quiz",
+            "due": "2026-10-14",
+            "weight": 10,
+            "done": true,
+            "completedAt": "2026-10-14",
+            "_demo": true
+          },
+          {
+            "id": 7,
+            "title": "Economics tutorial",
+            "due": "2026-10-17",
+            "weight": 10,
+            "done": true,
+            "completedAt": "2026-10-16",
+            "_demo": true
+          },
+          {
+            "id": 8,
+            "title": "Stats worksheet",
+            "due": "2026-10-21",
+            "weight": 10,
+            "done": true,
+            "completedAt": "2026-10-21",
+            "_demo": true
+          }
+        ],
+        "calc": {
+          "course": "Statistics",
+          "avg": 68,
+          "examWeight": 40
+        },
+        "timetable": [
+          {
+            "id": 1,
+            "title": "Statistics tutorial",
+            "time": "10:00",
+            "room": "B2",
+            "days": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Economics lecture",
+            "time": "13:00",
+            "room": "Hall 4",
+            "days": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          }
+        ],
+        "_nextIds": {
+          "file": 6,
+          "task": 9,
+          "timetable": 3,
+          "payout": 4,
+          "timeline": 8
+        },
+        "whatsapp": {
+          "phone": "27647506080",
+          "enabled": true,
+          "wellness": true
+        },
+        "sent": {
+          "2026-10-23|class2": 1,
+          "2026-10-24|class2": 1,
+          "2026-10-24|evening": 1,
+          "2026-10-24|winddown": 1,
+          "2026-10-25|class2": 1,
+          "2026-10-25|plan": 1,
+          "2026-10-26|digest": 1
+        },
+        "fundingMode": "bursary",
+        "nsfasProgress": {
+          "enrolled": null,
+          "passed": null,
+          "failed": null,
+          "minRate": 55
+        },
+        "bursary": {
+          "sponsor": "",
+          "contact": "",
+          "covers": "",
+          "endDate": null,
+          "minAvg": null,
+          "currentAvg": null,
+          "minModules": null,
+          "modulesPassed": null
+        },
+        "selfFunded": {
+          "feesTotal": null,
+          "feesPaid": null,
+          "instalments": [],
+          "income": [],
+          "budget": [],
+          "_next": 1
+        },
+        "wallet": {
+          "balance": 10000,
+          "weeklySpend": 485,
+          "payoutDay": 25
+        },
+        "payoutLog": {
+          "2026-10": "received",
+          "2026-09": "received"
+        },
+        "payoutDates": {},
+        "modules": [
+          {
+            "id": 1,
+            "name": "Statistics",
+            "assessments": [
+              {
+                "id": 1,
+                "name": "Mark so far",
+                "weight": 60,
+                "mark": 68
+              },
+              {
+                "id": 2,
+                "name": "Exam",
+                "weight": 40,
+                "mark": null
+              }
+            ]
+          }
+        ]
+      },
+      "createdAt": "2026-10-22T14:57:17.681Z"
+    },
+    {
+      "id": 2,
+      "username": "Scarlett.Solo",
+      "passwordHash": "$2a$10$vCo4DCE/kpek7W1fKg3fG.vsxvKuDFmGIoKgFMfHoGqNHnCzrprM6",
+      "data": {
+        "name": "Scar",
+        "links": {},
+        "timeline": [
+          {
+            "id": 1,
+            "label": "Re-register for modules",
+            "when": "Jan",
+            "done": false,
+            "date": "2026-01-01"
+          },
+          {
+            "id": 2,
+            "label": "Mid-year transcript to sponsor",
+            "when": "Jul",
+            "done": false,
+            "date": "2026-07-01"
+          },
+          {
+            "id": 3,
+            "label": "Renew accommodation",
+            "when": "Oct",
+            "done": false,
+            "date": "2026-10-01"
+          },
+          {
+            "id": 4,
+            "label": "Graduation clearance",
+            "when": "Nov",
+            "done": false,
+            "date": "2026-11-01"
+          }
+        ],
+        "files": [
+          {
+            "id": 1,
+            "name": "Certified ID copy",
+            "expires": "2026-10-28",
+            "filename": null
+          },
+          {
+            "id": 2,
+            "name": "Matric results",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 3,
+            "name": "Official transcript",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 4,
+            "name": "Proof of residence",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 5,
+            "name": "Income affidavit",
+            "expires": "2026-12-06",
+            "filename": null
+          }
+        ],
+        "nsfasStep": 3,
+        "money": {
+          "tuition": null,
+          "owing": null,
+          "accommodation": null,
+          "food": null,
+          "books": null
+        },
+        "tasks": [],
+        "calc": {
+          "course": "Maths",
+          "avg": 68,
+          "examWeight": 40
+        },
+        "timetable": [
+          {
+            "id": 1,
+            "title": "Statistics tutorial",
+            "time": "10:00",
+            "room": "B2",
+            "days": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Economics lecture",
+            "time": "13:00",
+            "room": "Hall 4",
+            "days": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          }
+        ],
+        "_nextIds": {
+          "file": 6,
+          "task": 4,
+          "timetable": 3,
+          "payout": 4,
+          "timeline": 5
+        },
+        "whatsapp": {
+          "phone": "",
+          "enabled": false,
+          "wellness": true
+        },
+        "sent": {},
+        "fundingMode": null,
+        "nsfasProgress": {
+          "enrolled": null,
+          "passed": null,
+          "failed": null,
+          "minRate": 55
+        },
+        "bursary": {
+          "sponsor": "",
+          "contact": "",
+          "covers": "",
+          "endDate": null,
+          "minAvg": null,
+          "currentAvg": null,
+          "minModules": null,
+          "modulesPassed": null
+        },
+        "selfFunded": {
+          "feesTotal": null,
+          "feesPaid": null,
+          "instalments": [],
+          "income": [],
+          "budget": [],
+          "_next": 1
+        },
+        "wallet": {
+          "balance": null,
+          "weeklySpend": null,
+          "payoutDay": 25
+        },
+        "payoutLog": {
+          "2026-10": "received",
+          "2026-09": "received",
+          "2026-08": "missing"
+        },
+        "payoutDates": {},
+        "modules": [
+          {
+            "id": 1,
+            "name": "Maths",
+            "assessments": [
+              {
+                "id": 1,
+                "name": "Mark so far",
+                "weight": 60,
+                "mark": 68
+              },
+              {
+                "id": 2,
+                "name": "Exam",
+                "weight": 40,
+                "mark": null
+              }
+            ]
+          }
+        ]
+      },
+      "createdAt": "2026-10-22T15:27:09.639Z"
+    },
+    {
+      "id": 3,
+      "username": "luke.solomon",
+      "passwordHash": "$2a$10$CNqlt382ccoJ49DTPCgXwuCRMuGZnMBfRAfNE3jIUUJUx3HPqBFV6",
+      "data": {
+        "name": "Luke",
+        "links": {
+          "portal": "https://stadio.instructure.com/?login_success=1",
+          "nsfas": "https://my.nsfas.org.za"
+        },
+        "timeline": [
+          {
+            "id": 1,
+            "label": "Re-register for modules",
+            "when": "Jan",
+            "done": true,
+            "date": "2026-01-01"
+          },
+          {
+            "id": 2,
+            "label": "Mid-year transcript to sponsor",
+            "when": "Jul",
+            "done": true,
+            "date": "2026-07-01"
+          },
+          {
+            "id": 3,
+            "label": "Renew accommodation",
+            "when": "Oct",
+            "done": true,
+            "date": "2026-10-01"
+          },
+          {
+            "id": 4,
+            "label": "Graduation clearance",
+            "when": "Nov",
+            "done": true,
+            "date": "2026-11-01"
+          }
+        ],
+        "files": [
+          {
+            "id": 1,
+            "name": "Certified ID copy",
+            "expires": "2026-10-22",
+            "filename": null
+          },
+          {
+            "id": 3,
+            "name": "Official transcript",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 4,
+            "name": "Proof of residence",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 5,
+            "name": "Income affidavit",
+            "expires": "2026-12-06",
+            "filename": null
+          },
+          {
+            "id": 6,
+            "name": "Matric Certificate",
+            "expires": null,
+            "filename": "d26f1be4-630d-4468-804a-4ccb693a9fdd.pdf"
+          }
+        ],
+        "nsfasStep": 3,
+        "money": {
+          "tuition": 630000,
+          "owing": 100,
+          "accommodation": 5000,
+          "food": 14000,
+          "books": 2000
+        },
+        "tasks": [
+          {
+            "id": 1,
+            "title": "Statistics test",
+            "due": "2026-10-24",
+            "weight": 30,
+            "done": false
+          },
+          {
+            "id": 2,
+            "title": "Economics essay",
+            "due": "2026-10-27",
+            "weight": 20,
+            "done": false
+          }
+        ],
+        "calc": {
+          "course": "Statistics",
+          "avg": 68,
+          "examWeight": 40
+        },
+        "timetable": [
+          {
+            "id": 1,
+            "title": "Statistics tutorial",
+            "time": "10:00",
+            "room": "B2",
+            "days": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Economics lecture",
+            "time": "13:00",
+            "room": "Hall 4",
+            "days": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          }
+        ],
+        "_nextIds": {
+          "file": 7,
+          "task": 4,
+          "timetable": 3,
+          "payout": 4,
+          "timeline": 5
+        },
+        "whatsapp": {
+          "phone": "",
+          "enabled": false,
+          "wellness": true
+        },
+        "sent": {},
+        "fundingMode": null,
+        "nsfasProgress": {
+          "enrolled": null,
+          "passed": null,
+          "failed": null,
+          "minRate": 55
+        },
+        "bursary": {
+          "sponsor": "",
+          "contact": "",
+          "covers": "",
+          "endDate": null,
+          "minAvg": null,
+          "currentAvg": null,
+          "minModules": null,
+          "modulesPassed": null
+        },
+        "selfFunded": {
+          "feesTotal": null,
+          "feesPaid": null,
+          "instalments": [],
+          "income": [],
+          "budget": [],
+          "_next": 1
+        },
+        "wallet": {
+          "balance": null,
+          "weeklySpend": null,
+          "payoutDay": 25
+        },
+        "payoutLog": {
+          "2026-10": "missing",
+          "2026-09": "received",
+          "2026-08": "received"
+        },
+        "payoutDates": {},
+        "modules": [
+          {
+            "id": 1,
+            "name": "Statistics",
+            "assessments": [
+              {
+                "id": 1,
+                "name": "Mark so far",
+                "weight": 60,
+                "mark": 68
+              },
+              {
+                "id": 2,
+                "name": "Exam",
+                "weight": 40,
+                "mark": null
+              }
+            ]
+          }
+        ]
+      },
+      "createdAt": "2026-10-22T15:48:35.647Z"
+    },
+    {
+      "id": 4,
+      "username": "luke.  solomon",
+      "passwordHash": "$2a$10$bHleZXZuyWtz1BfRsZ1g0Ovqa2gPTDSo0vpm/U.f0zueivZ5ldrwq",
+      "data": {
+        "name": "Luke",
+        "links": {},
+        "timeline": [
+          {
+            "id": 1,
+            "label": "Re-register for modules",
+            "when": "Jan",
+            "done": false,
+            "date": "2026-01-01"
+          },
+          {
+            "id": 2,
+            "label": "Mid-year transcript to sponsor",
+            "when": "Jul",
+            "done": false,
+            "date": "2026-07-01"
+          },
+          {
+            "id": 3,
+            "label": "Renew accommodation",
+            "when": "Oct",
+            "done": false,
+            "date": "2026-10-01"
+          },
+          {
+            "id": 4,
+            "label": "Graduation clearance",
+            "when": "Nov",
+            "done": false,
+            "date": "2026-11-01"
+          }
+        ],
+        "files": [
+          {
+            "id": 1,
+            "name": "Certified ID copy",
+            "expires": "2026-10-28",
+            "filename": null
+          },
+          {
+            "id": 2,
+            "name": "Matric results",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 3,
+            "name": "Official transcript",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 4,
+            "name": "Proof of residence",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 5,
+            "name": "Income affidavit",
+            "expires": "2026-12-06",
+            "filename": null
+          }
+        ],
+        "nsfasStep": 3,
+        "money": {
+          "tuition": null,
+          "owing": null,
+          "accommodation": null,
+          "food": null,
+          "books": null
+        },
+        "tasks": [
+          {
+            "id": 1,
+            "title": "Statistics test",
+            "due": "2026-10-24",
+            "weight": 30,
+            "done": false
+          },
+          {
+            "id": 2,
+            "title": "Economics essay",
+            "due": "2026-10-27",
+            "weight": 20,
+            "done": false
+          },
+          {
+            "id": 3,
+            "title": "Law quiz",
+            "due": "2026-10-29",
+            "weight": 10,
+            "done": false
+          }
+        ],
+        "calc": {
+          "course": "Statistics",
+          "avg": 68,
+          "examWeight": 40
+        },
+        "timetable": [
+          {
+            "id": 1,
+            "title": "Statistics tutorial",
+            "time": "10:00",
+            "room": "B2",
+            "days": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Economics lecture",
+            "time": "13:00",
+            "room": "Hall 4",
+            "days": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          }
+        ],
+        "_nextIds": {
+          "file": 6,
+          "task": 4,
+          "timetable": 3,
+          "payout": 4,
+          "timeline": 5
+        },
+        "whatsapp": {
+          "phone": "",
+          "enabled": false,
+          "wellness": true
+        },
+        "sent": {},
+        "fundingMode": null,
+        "nsfasProgress": {
+          "enrolled": null,
+          "passed": null,
+          "failed": null,
+          "minRate": 55
+        },
+        "bursary": {
+          "sponsor": "",
+          "contact": "",
+          "covers": "",
+          "endDate": null,
+          "minAvg": null,
+          "currentAvg": null,
+          "minModules": null,
+          "modulesPassed": null
+        },
+        "selfFunded": {
+          "feesTotal": null,
+          "feesPaid": null,
+          "instalments": [],
+          "income": [],
+          "budget": [],
+          "_next": 1
+        },
+        "wallet": {
+          "balance": null,
+          "weeklySpend": null,
+          "payoutDay": 25
+        },
+        "payoutLog": {
+          "2026-10": "received",
+          "2026-09": "received",
+          "2026-08": "missing"
+        },
+        "payoutDates": {},
+        "modules": [
+          {
+            "id": 1,
+            "name": "Statistics",
+            "assessments": [
+              {
+                "id": 1,
+                "name": "Mark so far",
+                "weight": 60,
+                "mark": 68
+              },
+              {
+                "id": 2,
+                "name": "Exam",
+                "weight": 40,
+                "mark": null
+              }
+            ]
+          }
+        ]
+      },
+      "createdAt": "2026-10-22T16:11:35.498Z"
+    },
+    {
+      "id": 5,
+      "username": "scarlett.solomon30",
+      "passwordHash": "$2a$10$5VRIGfeuFx0/5gdNRKVc9u9Wn0OLppZVbXIGw4w32cJfYUUeuc.QS",
+      "data": {
+        "name": "Scar",
+        "links": {},
+        "timeline": [
+          {
+            "id": 1,
+            "label": "Re-register for modules",
+            "when": "Jan",
+            "done": false,
+            "date": "2026-01-01"
+          },
+          {
+            "id": 2,
+            "label": "Mid-year transcript to sponsor",
+            "when": "Jul",
+            "done": false,
+            "date": "2026-07-01"
+          },
+          {
+            "id": 3,
+            "label": "Renew accommodation",
+            "when": "Oct",
+            "done": false,
+            "date": "2026-10-01"
+          },
+          {
+            "id": 4,
+            "label": "Graduation clearance",
+            "when": "Nov",
+            "done": false,
+            "date": "2026-11-01"
+          }
+        ],
+        "files": [
+          {
+            "id": 1,
+            "name": "Certified ID copy",
+            "expires": "2026-10-29",
+            "filename": null
+          },
+          {
+            "id": 2,
+            "name": "Matric results",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 3,
+            "name": "Official transcript",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 4,
+            "name": "Proof of residence",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 5,
+            "name": "Income affidavit",
+            "expires": "2026-12-07",
+            "filename": null
+          }
+        ],
+        "nsfasStep": 3,
+        "money": {
+          "tuition": null,
+          "owing": null,
+          "accommodation": null,
+          "food": null,
+          "books": null
+        },
+        "tasks": [
+          {
+            "id": 1,
+            "title": "Statistics test",
+            "due": "2026-10-25",
+            "weight": 30,
+            "done": false
+          },
+          {
+            "id": 2,
+            "title": "Economics essay",
+            "due": "2026-10-28",
+            "weight": 20,
+            "done": false
+          },
+          {
+            "id": 3,
+            "title": "Law quiz",
+            "due": "2026-10-30",
+            "weight": 10,
+            "done": false
+          }
+        ],
+        "calc": {
+          "course": "Statistics",
+          "avg": 68,
+          "examWeight": 40
+        },
+        "timetable": [
+          {
+            "id": 1,
+            "title": "Statistics tutorial",
+            "time": "10:00",
+            "room": "B2",
+            "days": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Economics lecture",
+            "time": "13:00",
+            "room": "Hall 4",
+            "days": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          }
+        ],
+        "_nextIds": {
+          "file": 6,
+          "task": 4,
+          "timetable": 3,
+          "payout": 4,
+          "timeline": 5
+        },
+        "whatsapp": {
+          "phone": "",
+          "enabled": false,
+          "wellness": true
+        },
+        "sent": {},
+        "fundingMode": null,
+        "nsfasProgress": {
+          "enrolled": null,
+          "passed": null,
+          "failed": null,
+          "minRate": 55
+        },
+        "bursary": {
+          "sponsor": "",
+          "contact": "",
+          "covers": "",
+          "endDate": null,
+          "minAvg": null,
+          "currentAvg": null,
+          "minModules": null,
+          "modulesPassed": null
+        },
+        "selfFunded": {
+          "feesTotal": null,
+          "feesPaid": null,
+          "instalments": [],
+          "income": [],
+          "budget": [],
+          "_next": 1
+        },
+        "wallet": {
+          "balance": null,
+          "weeklySpend": null,
+          "payoutDay": 25
+        },
+        "payoutLog": {
+          "2026-10": "received",
+          "2026-09": "received",
+          "2026-08": "missing"
+        },
+        "payoutDates": {},
+        "modules": [
+          {
+            "id": 1,
+            "name": "Statistics",
+            "assessments": [
+              {
+                "id": 1,
+                "name": "Mark so far",
+                "weight": 60,
+                "mark": 68
+              },
+              {
+                "id": 2,
+                "name": "Exam",
+                "weight": 40,
+                "mark": null
+              }
+            ]
+          }
+        ]
+      },
+      "createdAt": "2026-10-23T08:08:38.289Z"
+    },
+    {
+      "id": 6,
+      "username": "AAK",
+      "passwordHash": "$2a$10$h9/VLZwZEkDKf2QlsDTWyueqiIIlM7LoEzvOE7MM/E5nHB9c7puTm",
+      "data": {
+        "name": "Kayden",
+        "links": {},
+        "timeline": [
+          {
+            "id": 1,
+            "label": "Re-register for modules",
+            "date": "2026-01-15",
+            "done": false
+          },
+          {
+            "id": 2,
+            "label": "Mid-year transcript to sponsor",
+            "date": "2026-07-15",
+            "done": false
+          },
+          {
+            "id": 3,
+            "label": "Renew accommodation",
+            "date": "2026-10-15",
+            "done": false
+          },
+          {
+            "id": 4,
+            "label": "Graduation clearance",
+            "date": "2026-11-15",
+            "done": false
+          }
+        ],
+        "files": [
+          {
+            "id": 1,
+            "name": "Certified ID copy",
+            "expires": "2026-10-30",
+            "filename": null
+          },
+          {
+            "id": 2,
+            "name": "Matric results",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 3,
+            "name": "Official transcript",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 4,
+            "name": "Proof of residence",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 5,
+            "name": "Income affidavit",
+            "expires": "2026-12-08",
+            "filename": null
+          }
+        ],
+        "nsfasStep": 2,
+        "money": {
+          "tuition": 630000,
+          "owing": 1000,
+          "accommodation": 1400,
+          "food": 1000,
+          "books": 200
+        },
+        "tasks": [
+          {
+            "id": 1,
+            "title": "Statistics test",
+            "due": "2026-10-26",
+            "weight": 30,
+            "done": false
+          },
+          {
+            "id": 2,
+            "title": "Economics essay",
+            "due": "2026-10-29",
+            "weight": 20,
+            "done": false
+          },
+          {
+            "id": 3,
+            "title": "Law quiz",
+            "due": "2026-10-31",
+            "weight": 10,
+            "done": false
+          },
+          {
+            "id": 4,
+            "title": "Maths assignment",
+            "due": "2026-10-10",
+            "weight": 10,
+            "done": true,
+            "completedAt": "2026-10-10",
+            "_demo": true
+          },
+          {
+            "id": 5,
+            "title": "Law reading quiz",
+            "due": "2026-10-14",
+            "weight": 10,
+            "done": true,
+            "completedAt": "2026-10-14",
+            "_demo": true
+          },
+          {
+            "id": 6,
+            "title": "Economics tutorial",
+            "due": "2026-10-17",
+            "weight": 10,
+            "done": true,
+            "completedAt": "2026-10-16",
+            "_demo": true
+          },
+          {
+            "id": 7,
+            "title": "Stats worksheet",
+            "due": "2026-10-21",
+            "weight": 10,
+            "done": true,
+            "completedAt": "2026-10-21",
+            "_demo": true
+          }
+        ],
+        "calc": {
+          "course": "Statistics",
+          "avg": 68,
+          "examWeight": 40
+        },
+        "timetable": [
+          {
+            "id": 1,
+            "title": "Statistics tutorial",
+            "time": "10:00",
+            "room": "B2",
+            "days": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Economics lecture",
+            "time": "13:00",
+            "room": "Hall 4",
+            "days": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          }
+        ],
+        "_nextIds": {
+          "file": 6,
+          "task": 8,
+          "timetable": 3,
+          "payout": 4,
+          "timeline": 5
+        },
+        "payoutLog": {
+          "2026-09": "received",
+          "2026-08": "missing"
+        },
+        "fundingMode": "self",
+        "nsfasProgress": {
+          "enrolled": 6,
+          "passed": 2,
+          "failed": 0,
+          "minRate": 55
+        },
+        "bursary": {
+          "sponsor": "Sample Bursary Trust",
+          "contact": "",
+          "covers": "Tuition + allowance",
+          "endDate": null,
+          "minAvg": 62,
+          "currentAvg": 66,
+          "minModules": null,
+          "modulesPassed": null
+        },
+        "selfFunded": {
+          "feesTotal": 45000,
+          "feesPaid": 30000,
+          "instalments": [
+            {
+              "id": 1,
+              "label": "Instalment 2",
+              "amount": 7500,
+              "due": "2026-10-29",
+              "paid": false
+            },
+            {
+              "id": 2,
+              "label": "Instalment 3",
+              "amount": 7500,
+              "due": "2026-11-28",
+              "paid": false
+            }
+          ],
+          "income": [
+            {
+              "id": 1,
+              "label": "Parents",
+              "amount": 3000
+            },
+            {
+              "id": 2,
+              "label": "Part-time job",
+              "amount": 1200
+            }
+          ],
+          "budget": [
+            {
+              "id": 1,
+              "category": "Rent",
+              "amount": 2200
+            },
+            {
+              "id": 2,
+              "category": "Food",
+              "amount": 1200
+            },
+            {
+              "id": 3,
+              "category": "Transport",
+              "amount": 400
+            },
+            {
+              "id": 4,
+              "category": "Data",
+              "amount": 300
+            }
+          ],
+          "_next": 5
+        },
+        "wallet": {
+          "balance": 50,
+          "weeklySpend": 100,
+          "payoutDay": 25
+        },
+        "whatsapp": {
+          "phone": "",
+          "enabled": false,
+          "wellness": true
+        },
+        "sent": {},
+        "payoutDates": {},
+        "modules": [
+          {
+            "id": 1,
+            "name": "Statistics",
+            "assessments": [
+              {
+                "id": 1,
+                "name": "Mark so far",
+                "weight": 60,
+                "mark": 68
+              },
+              {
+                "id": 2,
+                "name": "Exam",
+                "weight": 40,
+                "mark": null
+              }
+            ]
+          }
+        ]
+      },
+      "createdAt": "2026-10-24T21:23:35.918Z"
+    },
+    {
+      "id": 7,
+      "username": "sofia.the.first",
+      "passwordHash": "$2a$10$BviJuOaGMZe8XvGRlfPR0Olt2hcG1c8P04F.04ISD2rsdsqUKwTQK",
+      "data": {
+        "name": "sof",
+        "links": {},
+        "timeline": [
+          {
+            "id": 1,
+            "label": "Re-register for modules",
+            "date": "2026-01-15",
+            "done": false
+          },
+          {
+            "id": 2,
+            "label": "Mid-year transcript to sponsor",
+            "date": "2026-07-15",
+            "done": false
+          },
+          {
+            "id": 3,
+            "label": "Renew accommodation",
+            "date": "2026-10-15",
+            "done": false
+          },
+          {
+            "id": 4,
+            "label": "Graduation clearance",
+            "date": "2026-11-15",
+            "done": false
+          }
+        ],
+        "files": [
+          {
+            "id": 1,
+            "name": "Certified ID copy",
+            "expires": "2026-10-31",
+            "filename": null
+          },
+          {
+            "id": 2,
+            "name": "Matric results",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 3,
+            "name": "Official transcript",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 4,
+            "name": "Proof of residence",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 5,
+            "name": "Income affidavit",
+            "expires": "2026-12-09",
+            "filename": null
+          }
+        ],
+        "nsfasStep": 3,
+        "money": {
+          "tuition": null,
+          "owing": null,
+          "accommodation": null,
+          "food": null,
+          "books": null
+        },
+        "tasks": [
+          {
+            "id": 1,
+            "title": "Statistics test",
+            "due": "2026-10-27",
+            "weight": 30,
+            "done": false
+          },
+          {
+            "id": 2,
+            "title": "Economics essay",
+            "due": "2026-10-30",
+            "weight": 20,
+            "done": false
+          },
+          {
+            "id": 3,
+            "title": "Law quiz",
+            "due": "2026-11-01",
+            "weight": 10,
+            "done": false
+          }
+        ],
+        "calc": {
+          "course": "Statistics",
+          "avg": 68,
+          "examWeight": 100
+        },
+        "timetable": [
+          {
+            "id": 1,
+            "title": "Statistics tutorial",
+            "time": "10:00",
+            "room": "B2",
+            "days": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Economics lecture",
+            "time": "13:00",
+            "room": "Hall 4",
+            "days": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          }
+        ],
+        "_nextIds": {
+          "file": 6,
+          "task": 4,
+          "timetable": 3,
+          "payout": 4,
+          "timeline": 5
+        },
+        "payoutLog": {
+          "2026-09": "received",
+          "2026-08": "missing"
+        },
+        "fundingMode": "nsfas",
+        "nsfasProgress": {
+          "enrolled": 6,
+          "passed": 2,
+          "failed": 0,
+          "minRate": 55
+        },
+        "bursary": {
+          "sponsor": "Sample Bursary Trust",
+          "contact": "",
+          "covers": "Tuition + allowance",
+          "endDate": null,
+          "minAvg": 62,
+          "currentAvg": 66,
+          "minModules": null,
+          "modulesPassed": null
+        },
+        "selfFunded": {
+          "feesTotal": 45000,
+          "feesPaid": 30000,
+          "instalments": [
+            {
+              "id": 1,
+              "label": "Instalment 2",
+              "amount": 7500,
+              "due": "2026-10-30",
+              "paid": false
+            },
+            {
+              "id": 2,
+              "label": "Instalment 3",
+              "amount": 7500,
+              "due": "2026-11-29",
+              "paid": false
+            }
+          ],
+          "income": [
+            {
+              "id": 1,
+              "label": "Parents",
+              "amount": 3000
+            },
+            {
+              "id": 2,
+              "label": "Part-time job",
+              "amount": 1200
+            }
+          ],
+          "budget": [
+            {
+              "id": 1,
+              "category": "Rent",
+              "amount": 2200
+            },
+            {
+              "id": 2,
+              "category": "Food",
+              "amount": 1200
+            },
+            {
+              "id": 3,
+              "category": "Transport",
+              "amount": 400
+            },
+            {
+              "id": 4,
+              "category": "Data",
+              "amount": 300
+            }
+          ],
+          "_next": 5
+        },
+        "wallet": {
+          "balance": 600,
+          "weeklySpend": 350,
+          "payoutDay": 25
+        },
+        "whatsapp": {
+          "phone": "",
+          "enabled": false,
+          "wellness": true
+        },
+        "sent": {},
+        "payoutDates": {},
+        "modules": []
+      },
+      "createdAt": "2026-10-25T10:00:29.248Z"
+    },
+    {
+      "id": 8,
+      "username": "hope123",
+      "passwordHash": "$2a$10$lgTT97j/XLCT9uTeCaMjbuPZ5YZQbG/Wy/r1kdqCKzRgbJoBMUkv.",
+      "data": {
+        "name": "hope",
+        "links": {},
+        "timeline": [
+          {
+            "id": 1,
+            "label": "Re-register for modules",
+            "date": "2026-01-15",
+            "done": false
+          },
+          {
+            "id": 2,
+            "label": "Mid-year exams and results",
+            "date": "2026-07-15",
+            "done": false
+          },
+          {
+            "id": 3,
+            "label": "Renew accommodation",
+            "date": "2026-10-15",
+            "done": false
+          },
+          {
+            "id": 4,
+            "label": "Graduation clearance",
+            "date": "2026-11-15",
+            "done": false
+          }
+        ],
+        "files": [
+          {
+            "id": 1,
+            "name": "Certified ID copy",
+            "expires": "2026-10-31",
+            "filename": null
+          },
+          {
+            "id": 2,
+            "name": "Matric results",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 3,
+            "name": "Official transcript",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 4,
+            "name": "Proof of residence",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 5,
+            "name": "Income affidavit",
+            "expires": "2026-12-09",
+            "filename": null
+          }
+        ],
+        "nsfasStep": 3,
+        "money": {
+          "tuition": null,
+          "owing": null,
+          "accommodation": null,
+          "food": null,
+          "books": null
+        },
+        "tasks": [
+          {
+            "id": 1,
+            "title": "Statistics test",
+            "due": "2026-10-27",
+            "weight": 30,
+            "done": false
+          },
+          {
+            "id": 2,
+            "title": "Economics essay",
+            "due": "2026-10-30",
+            "weight": 20,
+            "done": false
+          },
+          {
+            "id": 3,
+            "title": "Law quiz",
+            "due": "2026-11-01",
+            "weight": 10,
+            "done": false
+          }
+        ],
+        "calc": {
+          "course": "Statistics",
+          "avg": 68,
+          "examWeight": 40
+        },
+        "timetable": [
+          {
+            "id": 1,
+            "title": "Statistics tutorial",
+            "time": "10:00",
+            "room": "B2",
+            "days": [
+              1,
+              3
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Economics lecture",
+            "time": "13:00",
+            "room": "Hall 4",
+            "days": [
+              2,
+              4
+            ]
+          }
+        ],
+        "_nextIds": {
+          "file": 6,
+          "task": 4,
+          "timetable": 3,
+          "payout": 4,
+          "timeline": 5
+        },
+        "payoutLog": {
+          "2026-09": "received",
+          "2026-08": "missing",
+          "2026-07": "received"
+        },
+        "payoutDates": {
+          "2026-09": "2026-09-27",
+          "2026-07": "2026-07-28"
+        },
+        "fundingMode": "bursary",
+        "nsfasProgress": {
+          "enrolled": 6,
+          "passed": 2,
+          "failed": 0,
+          "minRate": 55
+        },
+        "bursary": {
+          "sponsor": "Sample Bursary Trust",
+          "contact": "",
+          "covers": "Tuition + allowance",
+          "endDate": null,
+          "minAvg": 62,
+          "currentAvg": 66,
+          "minModules": null,
+          "modulesPassed": null
+        },
+        "selfFunded": {
+          "feesTotal": 45000,
+          "feesPaid": 30000,
+          "instalments": [
+            {
+              "id": 1,
+              "label": "Instalment 2",
+              "amount": 7500,
+              "due": "2026-10-30",
+              "paid": false
+            },
+            {
+              "id": 2,
+              "label": "Instalment 3",
+              "amount": 7500,
+              "due": "2026-11-29",
+              "paid": false
+            }
+          ],
+          "income": [
+            {
+              "id": 1,
+              "label": "Parents",
+              "amount": 3000
+            },
+            {
+              "id": 2,
+              "label": "Part-time job",
+              "amount": 1200
+            }
+          ],
+          "budget": [
+            {
+              "id": 1,
+              "category": "Rent",
+              "amount": 2200
+            },
+            {
+              "id": 2,
+              "category": "Food",
+              "amount": 1200
+            },
+            {
+              "id": 3,
+              "category": "Transport",
+              "amount": 400
+            },
+            {
+              "id": 4,
+              "category": "Data",
+              "amount": 300
+            }
+          ],
+          "_next": 5
+        },
+        "wallet": {
+          "balance": 600,
+          "weeklySpend": 350,
+          "payoutDay": 25
+        },
+        "whatsapp": {
+          "phone": "",
+          "enabled": false,
+          "wellness": true
+        },
+        "sent": {},
+        "modules": [
+          {
+            "id": 1,
+            "name": "Statistics",
+            "assessments": [
+              {
+                "id": 1,
+                "name": "Mark so far",
+                "weight": 60,
+                "mark": 68
+              },
+              {
+                "id": 2,
+                "name": "Exam",
+                "weight": 40,
+                "mark": null
+              }
+            ]
+          }
+        ]
+      },
+      "createdAt": "2026-10-25T13:59:40.380Z"
+    },
+    {
+      "id": 9,
+      "username": "scarla.hope",
+      "passwordHash": "$2a$10$/BgyGxPAgHTGHSKt1M22DOvw7dgngE/fFVx/1pNJnQKKE3a6/Yosy",
+      "data": {
+        "name": "scar",
+        "links": {},
+        "timeline": [
+          {
+            "id": 1,
+            "label": "Re-register for modules",
+            "date": "2026-01-15",
+            "done": false
+          },
+          {
+            "id": 2,
+            "label": "Mid-year exams and results",
+            "date": "2026-07-15",
+            "done": false
+          },
+          {
+            "id": 3,
+            "label": "Renew accommodation",
+            "date": "2026-10-15",
+            "done": false
+          },
+          {
+            "id": 4,
+            "label": "Graduation clearance",
+            "date": "2026-11-15",
+            "done": false
+          }
+        ],
+        "files": [
+          {
+            "id": 1,
+            "name": "Certified ID copy",
+            "expires": "2026-10-31",
+            "filename": null
+          },
+          {
+            "id": 2,
+            "name": "Matric results",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 3,
+            "name": "Official transcript",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 4,
+            "name": "Proof of residence",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 5,
+            "name": "Income affidavit",
+            "expires": "2026-12-09",
+            "filename": null
+          }
+        ],
+        "nsfasStep": 3,
+        "money": {
+          "tuition": null,
+          "owing": null,
+          "accommodation": null,
+          "food": null,
+          "books": null
+        },
+        "tasks": [
+          {
+            "id": 1,
+            "title": "Statistics test",
+            "due": "2026-10-27",
+            "weight": 30,
+            "done": false
+          },
+          {
+            "id": 2,
+            "title": "Economics essay",
+            "due": "2026-10-30",
+            "weight": 20,
+            "done": false
+          },
+          {
+            "id": 3,
+            "title": "Law quiz",
+            "due": "2026-11-01",
+            "weight": 10,
+            "done": false
+          }
+        ],
+        "calc": {
+          "course": "Statistics",
+          "avg": 68,
+          "examWeight": 40
+        },
+        "timetable": [
+          {
+            "id": 1,
+            "title": "Statistics tutorial",
+            "time": "10:00",
+            "room": "B2",
+            "days": [
+              1,
+              3
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Economics lecture",
+            "time": "13:00",
+            "room": "Hall 4",
+            "days": [
+              2,
+              4
+            ]
+          }
+        ],
+        "_nextIds": {
+          "file": 6,
+          "task": 4,
+          "timetable": 3,
+          "payout": 4,
+          "timeline": 5
+        },
+        "payoutLog": {
+          "2026-09": "received",
+          "2026-08": "missing",
+          "2026-07": "received"
+        },
+        "payoutDates": {
+          "2026-09": "2026-09-27",
+          "2026-07": "2026-07-28"
+        },
+        "fundingMode": "bursary",
+        "nsfasProgress": {
+          "enrolled": 6,
+          "passed": 2,
+          "failed": 0,
+          "minRate": 55
+        },
+        "bursary": {
+          "sponsor": "Sample Bursary Trust",
+          "contact": "",
+          "covers": "Tuition + allowance",
+          "endDate": null,
+          "minAvg": 62,
+          "currentAvg": 66,
+          "minModules": null,
+          "modulesPassed": null
+        },
+        "selfFunded": {
+          "feesTotal": 45000,
+          "feesPaid": 30000,
+          "instalments": [
+            {
+              "id": 1,
+              "label": "Instalment 2",
+              "amount": 7500,
+              "due": "2026-10-30",
+              "paid": false
+            },
+            {
+              "id": 2,
+              "label": "Instalment 3",
+              "amount": 7500,
+              "due": "2026-11-29",
+              "paid": false
+            }
+          ],
+          "income": [
+            {
+              "id": 1,
+              "label": "Parents",
+              "amount": 3000
+            },
+            {
+              "id": 2,
+              "label": "Part-time job",
+              "amount": 1200
+            }
+          ],
+          "budget": [
+            {
+              "id": 1,
+              "category": "Rent",
+              "amount": 2200
+            },
+            {
+              "id": 2,
+              "category": "Food",
+              "amount": 1200
+            },
+            {
+              "id": 3,
+              "category": "Transport",
+              "amount": 400
+            },
+            {
+              "id": 4,
+              "category": "Data",
+              "amount": 300
+            }
+          ],
+          "_next": 5
+        },
+        "wallet": {
+          "balance": 600,
+          "weeklySpend": 350,
+          "payoutDay": 25
+        },
+        "whatsapp": {
+          "phone": "",
+          "enabled": false,
+          "wellness": true
+        },
+        "sent": {},
+        "modules": [
+          {
+            "id": 1,
+            "name": "Statistics",
+            "assessments": [
+              {
+                "id": 1,
+                "name": "Mark so far",
+                "weight": 60,
+                "mark": 68
+              },
+              {
+                "id": 2,
+                "name": "Exam",
+                "weight": 40,
+                "mark": null
+              }
+            ]
+          }
+        ]
+      },
+      "createdAt": "2026-10-25T14:27:19.347Z"
+    },
+    {
+      "id": 10,
+      "username": "KD",
+      "passwordHash": "$2a$10$l0DYyMs6FPSYsJZbOT.FvuWxD9MJXqNq0QV0YhEaLRKzTMAiqn11W",
+      "data": {
+        "name": "kayd",
+        "links": {},
+        "timeline": [
+          {
+            "id": 1,
+            "label": "Re-register for modules",
+            "date": "2026-01-15",
+            "done": false
+          },
+          {
+            "id": 2,
+            "label": "Mid-year exams and results",
+            "date": "2026-07-15",
+            "done": false
+          },
+          {
+            "id": 3,
+            "label": "Renew accommodation",
+            "date": "2026-10-15",
+            "done": false
+          },
+          {
+            "id": 4,
+            "label": "Graduation clearance",
+            "date": "2026-11-15",
+            "done": false
+          }
+        ],
+        "files": [
+          {
+            "id": 1,
+            "name": "Certified ID copy",
+            "expires": "2026-10-31",
+            "filename": null
+          },
+          {
+            "id": 2,
+            "name": "Matric results",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 3,
+            "name": "Official transcript",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 4,
+            "name": "Proof of residence",
+            "expires": null,
+            "filename": null
+          },
+          {
+            "id": 5,
+            "name": "Income affidavit",
+            "expires": "2026-12-09",
+            "filename": null
+          }
+        ],
+        "nsfasStep": 3,
+        "money": {
+          "tuition": null,
+          "owing": null,
+          "accommodation": null,
+          "food": null,
+          "books": null
+        },
+        "tasks": [
+          {
+            "id": 1,
+            "title": "Statistics test",
+            "due": "2026-10-27",
+            "weight": 30,
+            "done": false
+          },
+          {
+            "id": 2,
+            "title": "Economics essay",
+            "due": "2026-10-30",
+            "weight": 20,
+            "done": false
+          },
+          {
+            "id": 3,
+            "title": "Law quiz",
+            "due": "2026-11-01",
+            "weight": 10,
+            "done": false
+          }
+        ],
+        "modules": [
+          {
+            "id": 1,
+            "name": "maths",
+            "assessments": [
+              {
+                "id": 1,
+                "name": "Test 1",
+                "weight": 20,
+                "mark": null
+              },
+              {
+                "id": 2,
+                "name": "Assignment",
+                "weight": 20,
+                "mark": null
+              },
+              {
+                "id": 3,
+                "name": "Exam",
+                "weight": 60,
+                "mark": null
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "name": "english",
+            "assessments": [
+              {
+                "id": 1,
+                "name": "Test 1",
+                "weight": 20,
+                "mark": null
+              },
+              {
+                "id": 2,
+                "name": "Assignment",
+                "weight": 20,
+                "mark": null
+              },
+              {
+                "id": 3,
+                "name": "Exam",
+                "weight": 60,
+                "mark": null
+              }
+            ]
+          },
+          {
+            "id": 3,
+            "name": "IT",
+            "assessments": [
+              {
+                "id": 1,
+                "name": "Test 1",
+                "weight": 20,
+                "mark": null
+              },
+              {
+                "id": 2,
+                "name": "Assignment",
+                "weight": 20,
+                "mark": null
+              },
+              {
+                "id": 3,
+                "name": "Exam",
+                "weight": 60,
+                "mark": null
+              }
+            ]
+          }
+        ],
+        "timetable": [
+          {
+            "id": 1,
+            "title": "Statistics tutorial",
+            "time": "10:00",
+            "room": "B2",
+            "days": [
+              1,
+              3
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Economics lecture",
+            "time": "13:00",
+            "room": "Hall 4",
+            "days": [
+              2,
+              4
+            ]
+          }
+        ],
+        "_nextIds": {
+          "file": 6,
+          "task": 4,
+          "timetable": 3,
+          "payout": 4,
+          "timeline": 5
+        },
+        "payoutLog": {
+          "2026-09": "received",
+          "2026-08": "missing",
+          "2026-07": "received"
+        },
+        "payoutDates": {
+          "2026-09": "2026-09-27",
+          "2026-07": "2026-07-28"
+        },
+        "fundingMode": "self",
+        "nsfasProgress": {
+          "enrolled": 6,
+          "passed": 2,
+          "failed": 0,
+          "minRate": 55
+        },
+        "bursary": {
+          "sponsor": "Sample Bursary Trust",
+          "contact": "",
+          "covers": "Tuition + allowance",
+          "endDate": null,
+          "minAvg": 62,
+          "currentAvg": 66,
+          "minModules": null,
+          "modulesPassed": null
+        },
+        "selfFunded": {
+          "feesTotal": 45000,
+          "feesPaid": 30000,
+          "instalments": [
+            {
+              "id": 1,
+              "label": "Instalment 2",
+              "amount": 7500,
+              "due": "2026-10-30",
+              "paid": false
+            },
+            {
+              "id": 2,
+              "label": "Instalment 3",
+              "amount": 7500,
+              "due": "2026-11-29",
+              "paid": false
+            }
+          ],
+          "income": [
+            {
+              "id": 1,
+              "label": "Parents",
+              "amount": 3000
+            },
+            {
+              "id": 2,
+              "label": "Part-time job",
+              "amount": 1200
+            }
+          ],
+          "budget": [
+            {
+              "id": 1,
+              "category": "Rent",
+              "amount": 2200
+            },
+            {
+              "id": 2,
+              "category": "Food",
+              "amount": 1200
+            },
+            {
+              "id": 3,
+              "category": "Transport",
+              "amount": 400
+            },
+            {
+              "id": 4,
+              "category": "Data",
+              "amount": 300
+            }
+          ],
+          "_next": 5
+        },
+        "wallet": {
+          "balance": 600,
+          "weeklySpend": 350,
+          "payoutDay": 25
+        },
+        "whatsapp": {
+          "phone": "",
+          "enabled": false,
+          "wellness": true
+        },
+        "sent": {}
+      },
+      "createdAt": "2026-10-25T15:32:17.143Z"
+    }
+  ],
+  "nextUserId": 11
+}

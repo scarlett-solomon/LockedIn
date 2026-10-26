@@ -1,0 +1,2129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LockedIn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+
+
+<style>
+
+/* My colour combos */
+:root {
+  --ink:       #002147;   
+  --paper:     #ffffff;  
+  --backdrop:  #f5f4ef;   
+
+  
+  --yellow:       #FAFA33;
+  --yellow-soft:  #FFFFD1;
+  --navy:         #002147;
+  --navy-soft:    #E3EAF3;
+  --on-navy:      #ffffff;   
+
+  --radius-card: 20px;
+  --radius-btn:  14px;
+  --shadow:      3px 3px 0 var(--ink);  
+}
+
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Nunito', system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--backdrop);
+  display: flex; justify-content: center;
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+[hidden] { display: none !important; }
+
+
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+
+.app {
+  position: relative; overflow: hidden;
+  width: 100%; max-width: 430px; height: 100dvh;
+  background: var(--paper);
+  display: flex; flex-direction: column;
+}
+@media (min-width: 500px) {
+  body { padding: 24px 0; }
+  .app { height: 844px; max-height: calc(100dvh - 48px);
+         border: 2px solid var(--ink); border-radius: 32px;
+         box-shadow: 6px 6px 0 var(--ink); }
+}
+
+
+.screen {
+  display: none; flex: 1; overflow-y: auto;
+  flex-direction: column; gap: 14px;
+  padding: 24px 18px 16px;
+}
+.screen.active { display: flex; }
+.screen[data-accent="yellow"] { --accent: var(--yellow); --accent-soft: var(--yellow-soft); }
+.screen[data-accent="navy"] { --accent: var(--navy); --accent-soft: var(--navy-soft); }
+
+/* Text styles */
+.eyebrow { font-size: 13px; font-weight: 700; }
+.title   { font-size: 26px; font-weight: 900; line-height: 1.15; }
+.heading { font-size: 17px; font-weight: 900; margin-top: 4px; }
+.muted   { font-size: 13px; font-weight: 700; opacity: .75; }
+.title:focus { outline: none; }   
+
+/* Screen header with a short accent underline */
+.screen-head .title::after {
+  content: ""; display: block; width: 56px; height: 6px; margin-top: 8px;
+  background: var(--accent, var(--yellow)); border: 2px solid var(--ink); border-radius: 6px;
+}
+
+
+.card {
+  display: block; width: 100%; text-align: left;
+  background: var(--paper);
+  border: 2px solid var(--ink); border-radius: var(--radius-card);
+  box-shadow: var(--shadow); padding: 14px;
+}
+.card.soft-yellow { background: var(--yellow-soft); }
+.card.yellow { background: var(--yellow); }
+.card.soft-navy { background: var(--navy-soft); }
+.stack { display: flex; flex-direction: column; gap: 10px; }
+
+
+.pressable { transition: transform .08s, box-shadow .08s; }
+.pressable:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+
+
+.chip {
+  display: inline-block; white-space: nowrap;
+  border: 2px solid var(--ink); border-radius: 10px;
+  padding: 2px 8px; font-size: 12px; font-weight: 800; background: var(--paper);
+}
+.chip.yellow { background: var(--yellow); }
+.chip.navy { background: var(--navy); color: var(--on-navy); }
+
+/* Buttons */
+.btn {
+  min-height: 44px; padding: 0 14px;
+  border: 2px solid var(--ink); border-radius: var(--radius-btn);
+  background: var(--paper); font-weight: 800; font-size: 14px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+}
+.btn.yellow  { background: var(--yellow); }
+.btn.navy  { background: var(--navy); color: var(--on-navy); }
+.btn.block { width: 100%; }
+.btn.big   { min-height: 64px; font-size: 18px; box-shadow: var(--shadow); }
+.btn.small { min-height: 36px; padding: 0 10px; font-size: 13px; }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn-row .btn { flex: 1; }
+
+
+.row {
+  display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  min-height: 40px; font-weight: 800;
+}
+button.row { background: none; border: 0; width: 100%; text-align: left; }
+.row .label { flex: 1; min-width: 0; }
+.row .label small { display: block; font-size: 12px; font-weight: 700; opacity: .7; }
+.row.done .label { text-decoration: line-through; opacity: .55; }
+
+
+.tick {
+  flex: none; width: 26px; height: 26px; display: grid; place-items: center;
+  border: 2px solid var(--ink); border-radius: 8px; background: var(--paper);
+  font-weight: 900; font-size: 15px; line-height: 1;
+}
+.done .tick { background: var(--yellow); }
+.icon-btn {
+  flex: none; width: 36px; height: 36px; border: 2px solid var(--ink);
+  border-radius: 10px; background: var(--paper); font-weight: 900; font-size: 16px;
+}
+
+
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.grid2 .card { min-height: 118px; }
+
+
+.avatar {
+  width: 48px; height: 48px; border-radius: 50%; flex: none;
+  background: var(--navy); color: var(--on-navy); border: 2px solid var(--ink);
+  font-weight: 900; font-size: 18px;
+}
+.topbar { display: flex; justify-content: space-between; align-items: center; }
+
+
+.steps { display: flex; gap: 6px; margin-top: 10px; }
+.steps i { flex: 1; height: 10px; border-radius: 6px; border: 2px solid var(--ink); background: var(--paper); }
+.steps i.on { background: var(--yellow); }
+
+/* Forms */
+.field { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 800; }
+.input {
+  width: 100%; min-height: 44px; padding: 0 12px;
+  border: 2px solid var(--ink); border-radius: 12px; background: var(--paper);
+  font-weight: 800; font-size: 14px;
+}
+textarea.input { padding: 10px 12px; min-height: 230px; line-height: 1.45; resize: vertical; font-weight: 600; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+
+.nav {
+  display: flex; gap: 6px; padding: 10px 14px calc(12px + env(safe-area-inset-bottom));
+  background: var(--paper); border-top: 2px solid var(--ink);
+}
+.nav a {
+  flex: 1; min-height: 52px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 2px;
+  text-decoration: none; color: var(--ink);
+  border: 2px solid var(--ink); border-radius: 16px; background: var(--paper);
+  font-weight: 800; font-size: 11px;
+}
+.nav svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+/* Which accent each tab glows when selected */
+.nav a[aria-current="page"][data-go="home"],
+.nav a[aria-current="page"][data-go="money"] { background: var(--navy); color: var(--on-navy); }
+.nav a[aria-current="page"][data-go="admin"],
+.nav a[aria-current="page"][data-go="vault"],
+.nav a[aria-current="page"][data-go="study"] { background: var(--yellow); }
+
+
+.overlay {
+  position: absolute; inset: 0; z-index: 20;
+  background: rgba(29, 27, 58, .5);
+  display: flex; align-items: flex-end;
+}
+.sheet {
+  width: 100%; max-height: 88%; overflow-y: auto;
+  background: var(--paper); border-top: 2px solid var(--ink);
+  border-radius: 24px 24px 0 0; padding: 18px 18px 22px;
+  display: flex; flex-direction: column; gap: 14px;
+  animation: slide-up .2s ease-out;
+}
+.sheet-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.sheet-head h2 { font-size: 20px; font-weight: 900; }
+.sheet img.preview { width: 100%; max-height: 240px; object-fit: contain; border: 2px solid var(--ink); border-radius: 14px; background: var(--yellow-soft); }
+@keyframes slide-up { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .sheet { animation: none; } .pressable { transition: none; } }
+
+.toast {
+  position: absolute; left: 50%; bottom: 96px; transform: translateX(-50%);
+  z-index: 30; max-width: 85%; text-align: center;
+  background: var(--ink); color: #fff; font-weight: 800; font-size: 13px;
+  padding: 10px 14px; border-radius: 12px; border: 2px solid var(--ink);
+}
+
+/* Workload forecast bars */
+.bars { display: flex; gap: 6px; align-items: flex-end; margin-top: 10px; }
+.bars > div { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.bars i { display: block; width: 100%; min-height: 4px; border: 2px solid var(--ink); border-radius: 6px; background: var(--paper); }
+.bars i.mid { background: var(--yellow); }
+.bars i.hi  { background: var(--navy); }
+.bars span { font-size: 10px; font-weight: 800; }
+
+/* Money Hub */
+.steps i.bad { background: var(--navy); }
+.track { height: 12px; border: 2px solid var(--ink); border-radius: 8px; background: var(--paper); overflow: hidden; }
+.track b { display: block; height: 100%; background: var(--yellow); }
+</style>
+</head>
+
+<body>
+<div class="app">
+
+  
+  <div class="screen active" id="screen-auth" data-accent="navy" aria-label="Sign in" style="justify-content:center; gap:18px;">
+    <div style="text-align:center">
+      <p class="eyebrow">LockedIn</p>
+      <h1 class="title" tabindex="-1">Welcome</h1>
+      <p class="muted" style="margin-top:8px">Your admin, documents, money &amp; study hub</p>
+    </div>
+
+    <div class="card" id="auth-card">
+      <div class="btn-row" style="margin-bottom:14px">
+        <button class="btn yellow" id="tab-login" type="button">Log in</button>
+        <button class="btn" id="tab-register" type="button">Register</button>
+      </div>
+      <div class="stack" id="auth-form">
+        <div class="field">
+          <label for="auth-username">Username</label>
+          <input class="input" id="auth-username" autocomplete="username" maxlength="30" placeholder="e.g. thandi (no spaces)" autocapitalize="none" autocorrect="off" spellcheck="false">
+        </div>
+        <div class="field" id="auth-name-field" hidden>
+          <label for="auth-name">First name</label>
+          <input class="input" id="auth-name" maxlength="30" placeholder="e.g. Thandi">
+        </div>
+        <div class="field">
+          <label for="auth-password">Password</label>
+          <input class="input" id="auth-password" type="password" autocomplete="current-password" maxlength="64" placeholder="at least 8 characters, no spaces">
+        </div>
+        <p class="muted" id="auth-error" style="color:#b00020; min-height:1.2em"></p>
+        <button class="btn navy big block pressable" id="auth-submit" type="button">Log in</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <main class="screen active" id="screen-home" data-accent="navy" aria-label="Home">
+    <div class="topbar">
+      <div>
+        <p class="eyebrow" id="home-day">Today</p>
+        <h1 class="title" tabindex="-1" id="home-greeting">Hi!</h1>
+      </div>
+      
+      <button class="avatar pressable" id="btn-profile" aria-label="Your profile"></button>
+    </div>
+
+    <button class="card pressable" data-go="study" id="home-next"></button>
+
+    
+    <div class="card" id="home-insight" aria-live="polite"></div>
+
+   
+    <div class="grid2">
+      <button class="card yellow pressable" data-go="admin">
+        <p class="heading">Admin Hub</p>
+        <p class="eyebrow" id="home-admin-sub" style="margin-top:6px"></p>
+      </button>
+      <button class="card pressable" data-go="vault">
+        <p class="heading">Document Vault</p>
+        <p class="eyebrow" id="home-vault-sub" style="margin-top:6px"></p>
+      </button>
+      <button class="card pressable" data-go="money">
+        <p class="heading">Money Hub</p>
+        <p class="eyebrow" id="home-money-sub" style="margin-top:6px"></p>
+      </button>
+      <button class="card yellow pressable" data-go="study">
+        <p class="heading">Academics</p>
+        <p class="eyebrow" id="home-study-sub" style="margin-top:6px"></p>
+      </button>
+    </div>
+
+    
+    <div class="card" id="home-alert" aria-live="polite"></div>
+
+    
+    <div class="card" id="home-noticed" aria-live="polite" hidden></div>
+  </main>
+
+ 
+  <main class="screen" id="screen-admin" data-accent="yellow" aria-label="Admin Hub">
+    <div class="screen-head">
+      <h1 class="title" tabindex="-1">Admin Hub</h1>
+    </div>
+    <p class="muted" id="admin-sub"></p>
+    <button class="btn navy block" id="admin-pick" data-go="money" hidden>Pick how you are funded</button>
+
+    
+    <div class="btn-row" id="admin-links"></div>
+
+    <div class="card soft-yellow">
+      <p class="eyebrow">This year's timeline <span class="muted">· tap to tick off</span></p>
+      <div id="admin-timeline" style="margin-top:6px"></div>
+      <button class="btn small block" id="btn-add-timeline" style="margin-top:8px">+ Add to timeline</button>
+      <div id="admin-suggest" style="margin-top:10px"></div>
+    </div>
+
+    <div class="card">
+      <p class="eyebrow">Appeals and templates</p>
+      <div class="stack" style="margin-top:10px" id="admin-templates"></div>
+    </div>
+  </main>
+
+ 
+  <main class="screen" id="screen-vault" data-accent="yellow" aria-label="Document Vault">
+    <div class="screen-head">
+      <h1 class="title" tabindex="-1">Document Vault</h1>
+    </div>
+
+    <button class="btn navy big block pressable" id="btn-scan">Scan a document</button>
+   
+    <input type="file" id="file-input" accept="image/*,application/pdf" capture="environment" hidden>
+
+    <div class="card" id="vault-expiring"></div>
+
+    <div class="card">
+      <p class="eyebrow">Your files</p>
+      <div id="vault-list" style="margin-top:6px"></div>
+    </div>
+
+    <button class="btn yellow block" id="btn-whatsapp">Send to WhatsApp assistant</button>
+  </main>
+
+  
+  <main class="screen" id="screen-money" data-accent="navy" aria-label="Money Hub">
+    <div class="screen-head">
+      <h1 class="title" tabindex="-1">Money Hub</h1>
+    </div>
+
+    
+    <div class="stack" id="money-view"></div>
+  </main>
+
+
+  <main class="screen" id="screen-study" data-accent="yellow" aria-label="Academics">
+    <div class="screen-head">
+      <h1 class="title" tabindex="-1">Academics</h1>
+    </div>
+
+    <div class="card">
+      <p class="eyebrow">Due soon, ranked by due date</p>
+      <div id="study-tasks" style="margin-top:6px"></div>
+      <button class="btn small block" id="btn-add-task" style="margin-top:8px">+ Add a task</button>
+    </div>
+
+    <div class="card">
+      <p class="eyebrow">Your weekly timetable <span class="muted">· classes repeat every week</span></p>
+      <div class="btn-row" id="study-days" style="margin-top:8px;flex-wrap:nowrap;gap:4px"></div>
+      <div id="study-timetable" style="margin-top:6px"></div>
+      <button class="btn small block" id="btn-add-class" style="margin-top:8px">+ Add a class</button>
+    </div>
+
+    <div class="card soft-yellow" id="study-marks"></div>
+  </main>
+
+  
+  <nav class="nav" aria-label="Main">
+    <a href="#/home"  data-go="home"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</a>
+    <a href="#/admin" data-go="admin"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 10h6M9 14h6"/></svg>Admin</a>
+    <a href="#/vault" data-go="vault"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Vault</a>
+    <a href="#/money" data-go="money"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5c0-1 1-1.5 2.5-1.5s2.5.5 2.5 1.7c0 2.3-5 1.3-5 3.6 0 1.2 1.1 1.7 2.5 1.7s2.5-.6 2.5-1.6"/></svg>Money</a>
+    <a href="#/study" data-go="study"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5"/></svg>Study</a>
+  </nav>
+
+  
+  <div class="overlay" id="overlay" hidden>
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+      <div class="sheet-head">
+        <h2 id="sheet-title"></h2>
+        <button class="icon-btn" id="sheet-close" aria-label="Close">✕</button>
+      </div>
+      <div id="sheet-body" class="stack"></div>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status" hidden></div>
+</div>
+
+
+<script>
+
+'use strict';
+
+
+const CONFIG = {
+  whatsappNumber: '',   
+
+  quickLinks: [
+    { id: 'portal', label: 'Portal',        url: '',                        about: 'Your university student portal (registration, results, timetables).' },
+    { id: 'nsfas',  label: 'NSFAS',         url: 'https://my.nsfas.org.za', about: 'Check your NSFAS application, funding status and payments.' },
+    { id: 'fees',   label: 'Proof of payment / fee clearance', url: '', about: 'Where you get proof that your fees are paid and your fee clearance letter. You need these for registration, exams and graduation.' },
+  ],
+
+  templates: [
+    { id: 'nsfas',    title: 'NSFAS financial appeal',
+      text: `Subject: NSFAS financial appeal – [Student number]
+
+Dear NSFAS Appeals Committee,
+
+My name is [Full name], student number [Student number], studying [Qualification] at [Institution].
+
+I am appealing the decision on my funding dated [Date]. The outcome was: [Outcome].
+
+Reason for my appeal:
+[Explain what happened and why the decision should change]
+
+Supporting documents attached:
+- [Document 1]
+- [Document 2]
+
+I kindly ask that my application be reconsidered.
+
+Kind regards,
+[Full name]
+[Phone number] | [Email]` },
+    { id: 'exclusion', title: 'Academic exclusion appeal',
+      text: `Subject: Appeal against academic exclusion – [Student number]
+
+Dear Appeals Committee,
+
+I am [Full name], student number [Student number], registered for [Qualification].
+
+I am appealing my exclusion from [Programme/Faculty], communicated on [Date].
+
+Circumstances that affected my results:
+[Explain honestly: illness, family, finances, etc.]
+
+What I will do differently:
+[Your plan: tutoring, reduced load, support services]
+
+Supporting documents attached: [List documents, e.g. medical certificate]
+
+Thank you for considering my appeal.
+
+Kind regards,
+[Full name]
+[Phone number] | [Email]` },
+    { id: 'deferred',  title: 'Deferred exam application',
+      text: `Subject: Application for a deferred exam – [Module code]
+
+Dear Examinations Office,
+
+I am [Full name], student number [Student number].
+
+I am applying to defer my [Module code] exam scheduled for [Date], because:
+[Reason, e.g. illness or bereavement]
+
+I have attached: [Medical certificate / supporting document].
+
+Please let me know the date of the deferred exam.
+
+Kind regards,
+[Full name]
+[Phone number] | [Email]` },
+    { id: 'feehold',   title: 'Fee hold waiver',
+      text: `Subject: Request to lift fee hold – [Student number]
+
+Dear Finance Office,
+
+I am [Full name], student number [Student number].
+
+I am requesting that the hold on my account be lifted so that I can [register / write exams / receive results].
+
+My funding situation: [NSFAS approved / awaiting payment from sponsor / other]
+
+Expected payment date: [Date]
+
+Thank you for your help.
+
+Kind regards,
+[Full name]
+[Phone number] | [Email]` },
+  ],
+};
+
+
+const TOKEN_KEY = 'lockedIn.token';
+let token = localStorage.getItem(TOKEN_KEY) || null;
+let state = null;   
+
+async function api(path, opts = {}) {
+  const headers = opts.headers || {};
+  if (!(opts.body instanceof FormData)) {
+    headers['Content-Type'] = 'application/json';
+  }
+  if (token) headers['Authorization'] = 'Bearer ' + token;
+
+  const res = await fetch('/api' + path, {
+    ...opts,
+    headers,
+    body: opts.body instanceof FormData ? opts.body
+          : opts.body != null ? JSON.stringify(opts.body) : undefined,
+  });
+
+  if (res.status === 401 && token) {
+    logout(true);
+    throw new Error('Please log in again');
+  }
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || res.statusText || 'Request failed');
+  return data;
+}
+
+function setToken(t) {
+  token = t;
+  if (t) localStorage.setItem(TOKEN_KEY, t);
+  else localStorage.removeItem(TOKEN_KEY);
+}
+
+function logout(silent) {
+  setToken(null);
+  state = null;
+  showAuth();
+  if (!silent) toast('Logged out');
+}
+
+async function loadState() {
+  state = await api('/state');
+  renderAll();
+}
+
+
+const $ = (sel, root = document) => root.querySelector(sel);
+const pad = n => String(n).padStart(2, '0');
+const toISO = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const inDays = n => { const d = new Date(); d.setDate(d.getDate() + n); return toISO(d); };
+
+function h(tag, props = {}, ...kids) {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(props)) {
+    if (v == null || v === false) continue;
+    if (k === 'class')        el.className = v;
+    else if (k === 'text')    el.textContent = v;
+    else if (k.startsWith('on')) el.addEventListener(k.slice(2), v);
+    else                      el.setAttribute(k, v === true ? '' : v);
+  }
+  kids.flat(Infinity).forEach(c => { if (c != null && c !== false) el.append(c); });
+  return el;
+}
+
+const fill = (el, ...kids) => { el.replaceChildren(...kids.flat(Infinity).filter(Boolean)); };
+
+function daysUntil(iso) {
+  const t = new Date(); t.setHours(0, 0, 0, 0);
+  return Math.round((new Date(iso + 'T00:00:00') - t) / 86400000);
+}
+
+function friendlyDate(iso) {
+  const n = daysUntil(iso);
+  if (n === 0) return 'today';
+  if (n === 1) return 'tomorrow';
+  const d = new Date(iso + 'T00:00:00');
+  if (n > 1 && n < 7) return d.toLocaleDateString('en-ZA', { weekday: 'short' });
+  return d.toLocaleDateString('en-ZA', { day: 'numeric', month: 'short' });
+}
+
+function fullDate(iso) {
+  return new Date(iso + 'T00:00:00').toLocaleDateString('en-ZA', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+const rand = v => (v == null ? 'Tap to add' : 'R ' + Number(v).toLocaleString('en-ZA'));
+const numOrNull = v => (v === '' || isNaN(Number(v)) ? null : Number(v));
+
+async function copyText(text) {
+  try { await navigator.clipboard.writeText(text); return true; }
+  catch (e) {
+    const t = h('textarea', { style: 'position:fixed;opacity:0' }); t.value = text;
+    document.body.append(t); t.select();
+    const ok = document.execCommand('copy'); t.remove(); return ok;
+  }
+}
+
+function field(label, input) {
+  const id = 'f' + Math.random().toString(36).slice(2, 8);
+  input.id = id;
+  return h('div', { class: 'field' }, h('label', { for: id, text: label }), input);
+}
+
+
+const overlay = $('#overlay');
+let lastFocus = null;
+
+function openSheet(title, body) {
+  lastFocus = document.activeElement;
+  $('#sheet-title').textContent = title;
+  fill($('#sheet-body'), body);
+  overlay.hidden = false;
+  $('.sheet').scrollTop = 0;
+  const first = $('#sheet-body input, #sheet-body textarea, #sheet-body select');
+  (first || $('#sheet-close')).focus();
+}
+function closeSheet() {
+  overlay.hidden = true;
+  if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+}
+$('#sheet-close').onclick = closeSheet;
+overlay.addEventListener('click', e => { if (e.target === overlay) closeSheet(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !overlay.hidden) closeSheet(); });
+
+let toastTimer;
+function toast(msg) {
+  const t = $('#toast'); t.textContent = msg; t.hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => (t.hidden = true), 2600);
+}
+
+
+let authMode = 'login'; 
+
+const HAS_SPACE   = /\s/;
+const USERNAME_RE = /^[A-Za-z0-9._-]+$/;
+const NAME_RE     = /^[A-Za-z\u00C0-\u024F'’-]+$/;
+
+
+function validateAuth(username, password, name, isReg) {
+  if (!username) return 'Enter a username';
+  if (!password) return 'Enter a password';
+  if (HAS_SPACE.test(username)) return 'Username cannot contain spaces';
+  if (HAS_SPACE.test(password)) return 'Password cannot contain spaces';
+  if (!isReg) return '';   // log in: only the basics, so older accounts still work
+
+  if (username.length < 2 || username.length > 30) return 'Username must be 2–30 characters';
+  if (!USERNAME_RE.test(username)) return 'Username can only use letters, numbers, . _ -';
+  if (password.length < 8) return 'Password must be at least 8 characters';
+  if (name) {
+    if (HAS_SPACE.test(name)) return 'First name cannot contain spaces';
+    if (!NAME_RE.test(name)) return 'First name can only use letters';
+  }
+  return '';
+}
+
+function showAuth() {
+  
+  SCREENS.forEach(s => {
+    const el = $('#screen-' + s);
+    if (el) el.classList.remove('active');
+  });
+  const nav = $('.nav');
+  if (nav) nav.style.display = 'none';
+  $('#screen-auth').classList.add('active');
+  $('#auth-error').textContent = '';
+  setAuthMode('login');
+}
+
+function hideAuth() {
+  $('#screen-auth').classList.remove('active');
+  const nav = $('.nav');
+  if (nav) nav.style.display = '';
+}
+
+function setAuthMode(mode) {
+  authMode = mode;
+  const isReg = mode === 'register';
+  $('#tab-login').className = 'btn' + (isReg ? '' : ' yellow');
+  $('#tab-register').className = 'btn' + (isReg ? ' yellow' : '');
+  $('#auth-name-field').hidden = !isReg;
+  $('#auth-submit').textContent = isReg ? 'Create account' : 'Log in';
+  $('#auth-error').textContent = '';
+}
+
+$('#tab-login').onclick = () => setAuthMode('login');
+$('#tab-register').onclick = () => setAuthMode('register');
+
+$('#auth-submit').onclick = async () => {
+  const username = $('#auth-username').value;
+  const password = $('#auth-password').value;
+  const name = $('#auth-name').value;
+  const err = $('#auth-error');
+  err.textContent = '';
+
+  const problem = validateAuth(username, password, authMode === 'register' ? name : '', authMode === 'register');
+  if (problem) {
+    err.textContent = problem;
+    return;
+  }
+
+  $('#auth-submit').disabled = true;
+  try {
+    const path = authMode === 'register' ? '/register' : '/login';
+    const body = authMode === 'register'
+      ? { username, password, name: name || username }
+      : { username, password };
+
+    const data = await api(path, { method: 'POST', body });
+    setToken(data.token);
+    await loadState();
+    hideAuth();
+    go('home');
+    toast(authMode === 'register' ? 'Welcome! Demo data is ready.' : `Hi, ${data.user.name}!`);
+  } catch (e) {
+    err.textContent = e.message || 'Something went wrong';
+  } finally {
+    $('#auth-submit').disabled = false;
+  }
+};
+
+
+['auth-username', 'auth-password', 'auth-name'].forEach(id => {
+  const el = $('#' + id);
+  el.addEventListener('keydown', e => {
+    if (e.key === ' ') { e.preventDefault(); return; }
+    if (e.key === 'Enter') $('#auth-submit').click();
+  });
+  el.addEventListener('input', () => {
+    if (HAS_SPACE.test(el.value)) el.value = el.value.replace(/\s/g, '');
+    $('#auth-error').textContent = '';
+  });
+});
+
+
+function homeAlerts() {
+  const out = [];
+  const add = (rank, days, tone, area, go, text) => out.push({ rank, days, tone, area, go, text });
+  const mode = state.fundingMode;
+  const mo = moneyIns();
+
+  // Vault
+  for (const f of state.files) {
+    if (!f.expires) continue;
+    const n = daysUntil(f.expires);
+    if (n > 14) continue;
+    const when = n < 0 ? 'has expired' : n === 0 ? 'expires today' : `expires in ${pl(n, 'day')}`;
+    add(n <= 3 ? 2 : 3, n, n <= 3 ? 'risk' : 'watch', 'Vault', 'vault', `Your ${f.name} ${when}`);
+  }
+
+  // Study
+  const open = state.tasks.filter(t => !t.done);
+  const overdue = open.filter(t => daysUntil(t.due) < 0);
+  if (overdue.length === 1) add(1, daysUntil(overdue[0].due), 'risk', 'Study', 'study', `${overdue[0].title} is ${pl(-daysUntil(overdue[0].due), 'day')} overdue`);
+  else if (overdue.length > 1) add(1, Math.min(...overdue.map(t => daysUntil(t.due))), 'risk', 'Study', 'study', `${overdue.length} tasks are overdue`);
+  for (const t of open) {
+    const n = daysUntil(t.due);
+    if (n < 0 || n > 1) continue;
+    add(n === 0 ? 1 : 2, n, n === 0 ? 'risk' : 'watch', 'Study', 'study', `${t.title} is due ${n === 0 ? 'today' : 'tomorrow'}`);
+  }
+
+  // Admin
+  for (const t of state.timeline) {
+    if (t.done || !t.date) continue;
+    const n = daysUntil(t.date);
+    if (n < 0 && n >= -30) add(2, n, 'risk', 'Admin', 'admin', `${t.label} was due ${pl(-n, 'day')} ago`);
+    else if (n >= 0 && n <= 7) add(3, n, 'watch', 'Admin', 'admin', `${t.label} is due ${friendlyDate(t.date)}`);
+  }
+
+  // Marks
+  const ac = acad();
+  if (!ac.count) add(4, 0, 'watch', 'Study', 'study', 'Add your modules to track your marks');
+  else if (ac.focus && ac.focus.status === 'risk') add(2, -1, 'risk', 'Study', 'study', `${ac.focus.name} needs work (${ac.focus.current}%). ${ac.focus.passNote}`);
+
+  // Money
+  if (!mode) {
+    add(4, 0, 'watch', 'Money', 'money', 'Tell LockedIn how you are funded to set up your Money Hub');
+  } else if (mo) {
+    const f = mo.forecast || {}, p = mo.payout || {};
+    const rows = mo.payoutRows || [];
+    const slow = mode !== 'self' && rows.slice(0, 3).find(r => r.status === 'late' || r.status === 'missing');
+    if (slow) {
+      const base = slow.status === 'late' ? `Your payout is ${pl(slow.daysLate, 'day')} late` : `Your ${slow.month} payout is marked missing`;
+      const cash = f.ready && f.status !== 'ok' ? `. Your cash lasts about ${pl(f.daysCash, 'day')}` : '';
+      add(0, -slow.daysLate, 'risk', 'Money', 'money', base + cash);
+    } else if (f.ready && !p.late && f.status === 'short') {
+      add(0, f.daysCash, 'risk', 'Money', 'money', `Your money may run out ${pl(p.daysAway - f.daysCash, 'day')} before your ${p.label}`);
+    } else if (f.ready && !p.late && f.status === 'tight') {
+      add(3, f.daysCash, 'watch', 'Money', 'money', `Your money is tight until your ${p.label}`);
+    }
+    if (mo.health && mo.health.status === 'risk' && mode !== 'self') add(0, -1, 'risk', 'Money', 'money', mo.health.headline);
+    if (mode === 'self') {
+      for (const i of state.selfFunded.instalments.filter(x => !x.paid)) {
+        const n = daysUntil(i.due);
+        if (n < 0) add(0, n, 'risk', 'Money', 'money', `${i.label} (${rr(i.amount)}) is ${pl(-n, 'day')} overdue`);
+        else if (n <= 7) add(n <= 3 ? 2 : 3, n, n <= 3 ? 'risk' : 'watch', 'Money', 'money', `${i.label} (${rr(i.amount)}) is due ${n === 0 ? 'today' : n === 1 ? 'tomorrow' : 'in ' + pl(n, 'day')}`);
+      }
+    }
+    if (mode === 'bursary' && state.bursary.endDate) {
+      const n = daysUntil(state.bursary.endDate);
+      if (n >= 0 && n <= 30) add(3, n, 'watch', 'Money', 'money', `${state.bursary.sponsor || 'Your bursary'} contract ends in ${pl(n, 'day')}`);
+    }
+  }
+  return out.sort((a, b) => a.rank - b.rank || a.days - b.days);
+}
+
+function renderHeadsUp() {
+  const box = $('#home-alert');
+  const list = homeAlerts();
+  if (!list.length) {
+    box.className = 'card soft-yellow';
+    fill(box, h('span', { class: 'chip yellow', text: 'All clear' }), h('p', { class: 'heading', text: 'Nothing needs your attention right now' }));
+    return;
+  }
+  const shown = list.slice(0, 3);
+  box.className = 'card ' + (shown.some(a => a.tone === 'risk') ? 'soft-navy' : 'soft-yellow');
+  fill(box,
+    h('span', { class: 'chip navy', text: 'Heads up' }),
+    h('div', { style: 'margin-top:6px' }, shown.map(a =>
+      h('button', { class: 'row', 'data-go': a.go, 'aria-label': `${a.text}. Open ${a.area}.` },
+        h('span', { class: 'label', text: a.text }),
+        h('span', { class: 'chip ' + (a.tone === 'risk' ? 'navy' : 'yellow'), text: a.area })))),
+    list.length > shown.length && h('p', { class: 'eyebrow', style: 'margin-top:4px', text: `+ ${list.length - shown.length} more to check` }));
+}
+
+function renderHome() {
+  if (!state) return;
+  $('#home-day').textContent = new Date().toLocaleDateString('en-ZA', { weekday: 'long' });
+  $('#home-greeting').textContent = `Hi, ${state.name}!`;
+  $('#btn-profile').textContent = (state.name[0] || '?').toUpperCase();
+
+  renderHeadsUp();
+
+  const todo = state.timeline.filter(t => !t.done).length;
+  $('#home-admin-sub').textContent = todo ? `${todo} to do` : 'All done';
+  $('#home-vault-sub').textContent = `${state.files.length} file${state.files.length === 1 ? '' : 's'} safe`;
+  const payRows = (state.insights && state.insights.money && state.insights.money.payoutRows) || [];
+  const missing = payRows.filter(r => r.status === 'missing' || r.status === 'late').length;
+  const mo = state.insights && state.insights.money;
+  const runShort = mo && mo.forecast && mo.forecast.ready && mo.forecast.status === 'short';
+  $('#home-money-sub').textContent = runShort ? 'Money may run short' : missing ? `${missing} payout to check` : ['Not started', 'Applied', 'Approved', 'Stipend paid'][state.nsfasStep];
+  const nextTask = pendingTasks()[0];
+  $('#home-study-sub').textContent = nextTask ? `${nextTask.title} ${friendlyDate(nextTask.due)}` : 'Nothing due';
+
+  const now = new Date(), hhmm = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+  const todays = classesOnDay(now.getDay());
+  const upcoming = todays.find(c => c.time >= hhmm);
+  const next = $('#home-next'); next.className = 'card pressable';
+  fill(next,
+    h('p', { class: 'eyebrow', text: upcoming ? 'Up next today' : 'Today' }),
+    h('p', { class: 'heading', text: upcoming ? upcoming.title : todays.length ? "You're done for today" : state.timetable.length ? 'No classes today' : 'No classes added yet' }),
+    upcoming && h('p', { class: 'eyebrow', style: 'margin-top:4px', text: `${upcoming.time}${upcoming.room ? ' · ' + upcoming.room : ''}` }));
+}
+
+$('#btn-profile').onclick = () => {
+  const name = h('input', { class: 'input', value: state.name, maxlength: 30 });
+  const wa = state.whatsapp || { phone: '', enabled: false, wellness: true };
+  const phone = h('input', { class: 'input', type: 'tel', inputmode: 'tel', placeholder: 'e.g. 082 123 4567', value: wa.phone ? '+' + wa.phone : '' });
+  const enabled = h('input', { type: 'checkbox', id: 'wa-on' }); enabled.checked = !!wa.enabled;
+  const wellness = h('input', { type: 'checkbox', id: 'wa-well' }); wellness.checked = wa.wellness !== false;
+  const saveWA = async () => {
+    const data = await api('/whatsapp', { method: 'PUT', body: { phone: phone.value, enabled: enabled.checked, wellness: wellness.checked } });
+    state.whatsapp = data;
+    return data;
+  };
+  openSheet('Your profile', [
+    field('Your first name', name),
+    h('p', { class: 'heading', text: 'WhatsApp assistant' }),
+    h('p', { class: 'muted', text: 'Get reminders for classes, tasks and documents, plus exam-time encouragement.' }),
+    field('WhatsApp number', phone),
+    h('label', { class: 'row', for: 'wa-on' }, enabled, h('span', { class: 'label', text: 'Send me reminders' })),
+    h('label', { class: 'row', for: 'wa-well' }, wellness, h('span', { class: 'label', text: 'Encouragement & relax tips around exams' })),
+    h('button', { class: 'btn yellow block', text: 'Save WhatsApp settings', onclick: async () => {
+      try { await saveWA(); toast('WhatsApp settings saved'); } catch (e) { toast(e.message); }
+    } }),
+    h('button', { class: 'btn navy block', text: 'Save', onclick: async () => {
+      try {
+        const data = await api('/profile', { method: 'PATCH', body: { name: name.value.trim() || 'Student' } });
+        state.name = data.name;
+        closeSheet();
+        renderAll();
+        toast('Saved');
+      } catch (e) { toast(e.message); }
+    } }),
+    h('button', { class: 'btn block', text: 'Log out', onclick: () => { closeSheet(); logout(); } }),
+  ]);
+};
+
+
+async function refreshInsights() {
+  if (!state || !token) return;
+  try {
+    state.insights = await api('/insights');
+    renderInsights();
+    renderMoney();
+    renderAdmin();
+    renderHome();
+  } catch (e) { /* the card simply stays empty */ }
+}
+
+function renderInsights() {
+  const box = $('#home-insight');
+  const ins = state && state.insights;
+  if (!box || !ins) return;
+
+  box.className = 'card ' + (ins.level === 'High' ? 'soft-navy' : ins.level === 'Medium' ? 'soft-yellow' : '');
+  const chip = ins.level === 'High' ? 'navy' : ins.level === 'Medium' ? 'yellow' : '';
+
+  const bars = h('div', { class: 'bars', 'aria-hidden': 'true' }, ins.days.slice(0, 7).map(d =>
+    h('div', {},
+      h('i', { class: d.load >= 40 ? 'hi' : d.load >= 20 ? 'mid' : '', style: `height:${Math.max(4, Math.min(44, Math.round(d.load * 0.9)))}px` }),
+      h('span', { text: d.day.slice(0, 2) }))));
+
+  const hb = ins.habit;
+  const habitText = hb.label === 'unknown'
+    ? 'Finish a few tasks and I will learn how you work.'
+    : `You usually finish ${hb.label === 'last-minute' ? 'close to the deadline' : hb.label === 'early' ? 'well before the deadline' : 'a day or two before the deadline'}, so I warn you ${hb.leadDays} day${hb.leadDays === 1 ? '' : 's'} ahead.`;
+
+  fill(box,
+    h('div', { class: 'row' },
+      h('p', { class: 'eyebrow', text: 'Your week ahead' }),
+      h('span', { class: 'chip ' + chip, text: `${ins.level} workload` })),
+    h('p', { class: 'heading', text: ins.headline }),
+    bars,
+    h('p', { class: 'muted', style: 'margin-top:8px', text: habitText }),
+    h('div', { class: 'btn-row', style: 'margin-top:10px' },
+      h('button', { class: 'btn navy', text: 'Get my AI plan', onclick: openPlan })));
+
+
+  const nb = $('#home-noticed');
+  if (nb) {
+    const items = ins.noticed || [];
+    nb.hidden = !items.length;
+    fill(nb,
+      h('p', { class: 'eyebrow', text: "What I've noticed about you" }),
+      h('div', { style: 'margin-top:6px' }, items.map(n =>
+        h('div', { style: 'margin-top:10px' },
+          h('p', { class: 'eyebrow', text: n.kind }),
+          h('p', { class: 'muted', style: 'margin-top:2px', text: n.text })))));
+  }
+}
+
+async function openPlan() {
+  const box = h('textarea', { class: 'input', readonly: true, 'aria-label': 'Your weekly plan' });
+  box.value = 'Thinking…';
+  const source = h('p', { class: 'muted', text: '' });
+  openSheet('Your week, planned', [
+    h('p', { class: 'muted', text: 'Built from your tasks, timetable and how you usually work.' }),
+    box,
+    source,
+    h('div', { class: 'btn-row' },
+      h('button', { class: 'btn navy', text: 'Copy', onclick: async () => toast((await copyText(box.value)) ? 'Copied' : 'Could not copy') }),
+      h('button', { class: 'btn yellow', text: 'Send to my WhatsApp', onclick: async () => {
+        try { await api('/insights/plan/send', { method: 'POST' }); toast('Sent! Check WhatsApp'); } catch (e) { toast(e.message); }
+      } })),
+  ]);
+  try {
+    const r = await api('/insights/plan', { method: 'POST', body: {} });
+    box.value = r.plan;
+    source.textContent = r.source === 'claude' ? 'Written by Claude' : 'Rule-based plan (add an ANTHROPIC_API_KEY to switch on the AI version)';
+  } catch (e) { box.value = e.message; }
+}
+
+
+const timelineDate = item => item.date || '';
+const sortedTimeline = () => [...state.timeline].sort((a, b) => timelineDate(a).localeCompare(timelineDate(b)));
+
+
+const ADMIN_SUGGESTIONS = {
+  nsfas:   ['NSFAS re-application', 'Submit appeal documents', 'Upload year-end results'],
+  bursary: ['Send results to sponsor', 'Bursary renewal form', 'Vacation work or work-back'],
+  self:    ['Apply for bursaries', 'Ask for a payment plan', 'Pay registration fee'],
+};
+
+
+function moneyDates() {
+  const mode = state.fundingMode, out = [];
+  if (!mode) return out;
+  const today = toISO(new Date());
+  if (mode === 'self') {
+    state.selfFunded.instalments.filter(i => !i.paid).forEach(i => out.push({ label: `${i.label} · ${rr(i.amount)}`, date: i.due }));
+  }
+  if (mode === 'bursary' && state.bursary.endDate && state.bursary.endDate >= today) {
+    out.push({ label: `${state.bursary.sponsor || 'Bursary'} contract ends`, date: state.bursary.endDate });
+  }
+  const mo = moneyIns();
+  if (mode !== 'self' && mo && mo.payout && !mo.payout.late) out.push({ label: 'Payout expected', date: mo.payout.date });
+  return out;
+}
+
+function renderAdmin() {
+  if (!state) return;
+  const mode = state.fundingMode;
+  const name = { nsfas: 'NSFAS', bursary: 'bursary', self: 'self-funded' }[mode];
+  $('#admin-sub').textContent = mode
+    ? `Links, letters and dates for ${name} students. You can change this in the Money Hub.`
+    : 'Pick how you are funded in the Money Hub and this page will fit you.';
+
+  $('#admin-pick').hidden = !!mode;
+
+  const linkOrder = l => (mode === 'self' && l.id === 'fees' ? 0 : 1);   // self-funded students need this one most
+  fill($('#admin-links'), CONFIG.quickLinks.filter(l => !l.modes || !mode || l.modes.includes(mode)).sort((a, b) => linkOrder(a) - linkOrder(b)).map(l =>
+    h('button', { class: 'btn yellow', text: l.label, onclick: () => openLinkSheet(l) })));
+
+  const letter = t => h('button', { class: 'btn block', style: 'justify-content:flex-start', text: t.title, onclick: () => (t.open ? t.open() : openTemplateSheet(t)) });
+  const mine = mode ? CONFIG.templates.filter(t => t.modes && t.modes.includes(mode)) : [];
+  fill($('#admin-templates'), mode
+    ? [mine.length && h('p', { class: 'eyebrow', text: 'For you' }), mine.map(letter),
+       h('p', { class: 'eyebrow', style: 'margin-top:4px', text: 'For any student' }), CONFIG.templates.filter(t => !t.modes).map(letter)]
+    : CONFIG.templates.map(letter));
+
+  
+  const entries = [
+    ...state.timeline.map(item => ({ kind: 'task', item, date: timelineDate(item) })),
+    ...moneyDates().map(m => ({ kind: 'money', ...m })),
+  ].sort((a, b) => a.date.localeCompare(b.date));
+
+  fill($('#admin-timeline'), entries.length ? entries.map(e => {
+    if (e.kind === 'money') {
+      return h('button', { class: 'row', 'data-go': 'money', 'aria-label': `${e.label}, ${fullDate(e.date)}. From your Money Hub. Open it.` },
+        h('span', { class: 'tick', text: 'R' }),
+        h('span', { class: 'label' }, e.label, h('small', { text: 'From your Money Hub' })),
+        h('span', { class: 'chip navy', text: fullDate(e.date) }));
+    }
+    const item = e.item;
+    return h('div', { class: 'row' + (item.done ? ' done' : '') },
+      h('button', { class: 'row', style: 'flex:1', role: 'checkbox', 'aria-checked': String(item.done),
+          onclick: async () => {
+            try {
+              await api(`/timeline/${item.id}`, { method: 'PATCH', body: { done: !item.done } });
+              item.done = !item.done;
+              renderAll();
+            } catch (err) { toast(err.message); }
+          } },
+        h('span', { class: 'tick', text: item.done ? '✓' : '' }),
+        h('span', { class: 'label', text: item.label }),
+        h('span', { class: 'chip', text: item.date ? fullDate(item.date) : (item.when || '') })),
+      h('button', { class: 'icon-btn', 'aria-label': `Delete ${item.label}`, text: '✕',
+          onclick: async () => {
+            try {
+              await api(`/timeline/${item.id}`, { method: 'DELETE' });
+              state.timeline = state.timeline.filter(x => x.id !== item.id);
+              renderAll();
+            } catch (err) { toast(err.message); }
+          } }));
+  }) : h('p', { class: 'muted', text: 'Nothing on your timeline. Add something below.' }));
+
+  // suggested deadlines for this funding type (hidden once the student has added one like it)
+  const have = state.timeline.map(t => t.label.toLowerCase());
+  const ideas = (ADMIN_SUGGESTIONS[mode] || []).filter(x => !have.includes(x.toLowerCase()));
+  fill($('#admin-suggest'), ideas.length ? [
+    h('p', { class: 'eyebrow', text: 'Suggested for you · tap to pick a date' }),
+    h('div', { class: 'btn-row', style: 'margin-top:6px' }, ideas.map(x => h('button', { class: 'btn small', text: '+ ' + x, onclick: () => openTimelineSheet(x) }))),
+  ] : []);
+}
+
+function openTimelineSheet(prefill) {
+  const label = h('input', { class: 'input', placeholder: 'e.g. Submit bursary form', maxlength: 60, value: prefill || '' });
+  const date = h('input', { class: 'input', type: 'date', value: toISO(new Date()) });
+  openSheet('Add to timeline', [
+    field('What is it?', label),
+    field('Date', date),
+    h('button', { class: 'btn yellow block', text: 'Add to timeline', onclick: async () => {
+      if (!label.value.trim()) return toast('Give it a name');
+      if (!date.value) return toast('Pick a date');
+      try {
+        const item = await api('/timeline', {
+          method: 'POST',
+          body: { label: label.value.trim(), date: date.value },
+        });
+        state.timeline.push(item);
+        closeSheet();
+        renderAll();
+        toast('Added');
+      } catch (e) { toast(e.message); }
+    } }),
+  ]);
+}
+
+$('#btn-add-timeline').onclick = () => openTimelineSheet();
+
+function openLinkSheet(link) {
+  const url = h('input', { class: 'input', type: 'url', placeholder: 'https://…', value: state.links[link.id] || link.url || '' });
+  const open = async () => {
+    let u = url.value.trim(); if (!u) return toast('Add a web address first');
+    if (!/^https?:\/\//i.test(u)) u = 'https://' + u;
+    try {
+      await api(`/links/${link.id}`, { method: 'PUT', body: { url: u } });
+      state.links[link.id] = u;
+      window.open(u, '_blank', 'noopener');
+    } catch (e) { toast(e.message); }
+  };
+  openSheet(link.label, [
+    h('p', { class: 'muted', text: link.about }),
+    !(state.links[link.id] || link.url) && h('p', { class: 'muted', text: 'First time: paste the address from your university’s website once and LockedIn will remember it.' }),
+    field('Web address', url),
+    h('button', { class: 'btn yellow block', text: `Open ${link.label}`, onclick: open }),
+    h('button', { class: 'btn block', text: 'Save address', onclick: async () => {
+      try {
+        await api(`/links/${link.id}`, { method: 'PUT', body: { url: url.value.trim() } });
+        state.links[link.id] = url.value.trim();
+        closeSheet();
+        toast('Saved');
+      } catch (e) { toast(e.message); }
+    } }),
+  ]);
+}
+
+function openTemplateSheet(t) {
+  const text = h('textarea', { class: 'input', 'aria-label': t.title }); text.value = t.text;
+  const warn = s => /\[[^\]]+\]/.test(s) ? ' – fill in the [brackets] first' : '';
+  openSheet(t.title, [
+    h('p', { class: 'muted', text: 'Edit the letter below, then copy it or email it.' }),
+    text,
+    h('div', { class: 'btn-row' },
+      h('button', { class: 'btn navy', text: 'Copy', onclick: async () => toast((await copyText(text.value)) ? 'Copied' + warn(text.value) : 'Could not copy') }),
+      h('button', { class: 'btn yellow', text: 'Email it', onclick: () => {
+        const [first, ...rest] = text.value.split('\n');
+        const hasSubject = /^subject:/i.test(first);
+        const body = (hasSubject ? rest : [first, ...rest]).join('\n').trim();
+        location.href = `mailto:?subject=${encodeURIComponent(hasSubject ? first.replace(/^subject:\s*/i, '') : t.title)}&body=${encodeURIComponent(body)}`;
+      } })),
+  ]);
+}
+
+
+function expiryChip(f) {
+  if (!f.expires) return h('span', { class: 'chip yellow', text: 'Ready' });
+  const n = daysUntil(f.expires);
+  if (n < 0)   return h('span', { class: 'chip navy', text: 'Expired' });
+  if (n <= 14) return h('span', { class: 'chip navy', text: `${n} day${n === 1 ? '' : 's'} left` });
+  return h('span', { class: 'chip', text: `${n} days left` });
+}
+
+function renderVault() {
+  if (!state) return;
+  const soon = state.files.filter(f => f.expires && daysUntil(f.expires) <= 30).sort((a, b) => daysUntil(a.expires) - daysUntil(b.expires))[0];
+  const box = $('#vault-expiring');
+  box.className = 'card ' + (soon ? 'soft-navy' : 'soft-yellow');
+  fill(box,
+    h('p', { class: 'eyebrow', text: soon ? 'Needs re-stamping soon' : 'All clear' }),
+    soon ? h('div', { class: 'row', style: 'margin-top:6px' }, h('span', { class: 'label', text: soon.name }), expiryChip(soon))
+         : h('p', { class: 'heading', text: 'Nothing is expiring soon' }));
+
+  fill($('#vault-list'), state.files.length
+    ? state.files.map(f => h('button', { class: 'row', onclick: () => openFileSheet(f), 'aria-label': `Open ${f.name}` },
+        h('span', { class: 'label', text: f.name }), expiryChip(f)))
+    : h('p', { class: 'muted', text: 'No files yet. Tap "Scan a document" to add one.' }));
+}
+
+$('#btn-scan').onclick = () => $('#file-input').click();
+$('#file-input').onchange = async e => {
+  const file = e.target.files[0]; e.target.value = '';
+  if (!file) return;
+  // Open sheet so user can name it + set expiry, then upload
+  openFileSheet({ id: null, name: file.name.replace(/\.[^.]+$/, ''), expires: null, _file: file });
+};
+
+function openFileSheet(f) {
+  const isNew = f.id === null;
+  const name = h('input', { class: 'input', value: f.name, maxlength: 60 });
+  const exp  = h('input', { class: 'input', type: 'date', value: f.expires || '' });
+
+  const kids = [];
+  if (f.img) kids.push(h('img', { class: 'preview', src: f.img + (f.img.includes('?') ? '&' : '?') + 'token=' + encodeURIComponent(token), alt: `Scan of ${f.name}` }));
+  kids.push(field('Name', name));
+  kids.push(field('Expires on (leave empty if it never does)', exp));
+
+  kids.push(h('button', { class: 'btn navy block', text: isNew ? 'Save to vault' : 'Save changes', onclick: async () => {
+    const clean = name.value.trim() || 'Untitled document';
+    try {
+      if (isNew) {
+        const fd = new FormData();
+        fd.append('name', clean);
+        if (exp.value) fd.append('expires', exp.value);
+        if (f._file) fd.append('file', f._file);
+        const created = await api('/files', { method: 'POST', body: fd, headers: {} });
+        state.files.push(created);
+      } else {
+        const updated = await api(`/files/${f.id}`, {
+          method: 'PATCH',
+          body: { name: clean, expires: exp.value || null },
+        });
+        Object.assign(f, updated);
+      }
+      closeSheet();
+      renderAll();
+      toast(isNew ? 'Saved to your vault' : 'Updated');
+    } catch (e) { toast(e.message); }
+  } }));
+
+  if (!isNew) {
+    kids.push(h('button', { class: 'btn block', text: 'Delete document', onclick: async () => {
+      if (!confirm(`Delete "${f.name}"?`)) return;
+      try {
+        await api(`/files/${f.id}`, { method: 'DELETE' });
+        state.files = state.files.filter(x => x.id !== f.id);
+        closeSheet();
+        renderAll();
+      } catch (e) { toast(e.message); }
+    } }));
+  }
+
+  openSheet(isNew ? 'Save document' : 'Document', kids);
+}
+
+
+$('#btn-whatsapp').onclick = () => {
+  if (!state.files.length) return toast('Add a document first');
+  const msg = `Hi! Here are my documents from LockedIn:\n` + state.files.map(f => `• ${f.name}`).join('\n') +
+              `\n\n(I'll send the files in this chat.)`;
+  const to = CONFIG.whatsappNumber.replace(/\D/g, '');
+  window.open(`https://wa.me/${to}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+};
+
+
+const NSFAS_TEXT = ['Not started', 'Applied · Waiting for a decision', 'Approved · Awaiting payout', 'Approved · Funds paid out'];
+const MODES = [
+  ['nsfas',   'NSFAS',       'Payouts and keeping my funding'],
+  ['bursary', 'Bursary',     "My sponsor's conditions"],
+  ['self',    'Self-funded', 'Fees and cash flow'],
+];
+const HEALTH_TITLE = { nsfas: 'Will I keep my NSFAS funding?', bursary: 'Will I keep my bursary?', self: 'Fees health' };
+const STATUS_UI = { ok: ['yellow', 'On track'], watch: ['yellow', 'Keep an eye'], risk: ['navy', 'At risk'], unknown: ['', 'Set up'] };
+
+const rr = v => 'R ' + Math.round(Number(v) || 0).toLocaleString('en-ZA');
+const pl = (n, w) => `${n} ${w}${n === 1 ? '' : 's'}`;
+const moneyIns = () => (state.insights && state.insights.money) || null;
+
+// Appeals
+const APPEAL_DOCS = [
+  ['Certified ID copy', /\bid\b/i],
+  ['Proof of income or affidavit', /income|affidavit/i],
+  ['Academic record or transcript', /transcript|academic|result/i],
+  ['Proof of registration', /registration/i],
+  ['Proof of residence', /residence/i],
+];
+
+// Sample list
+const BURSARY_FINDER = [
+  { name: 'Funza Lushaka Bursary', about: 'Teaching degrees', closes: '' },
+  { name: 'Sasol Bursary',         about: 'Engineering and science', closes: '' },
+  { name: 'Transnet Bursary',      about: 'Engineering, finance and logistics', closes: '' },
+  { name: 'Eskom Bursary',         about: 'Engineering and technical fields', closes: '' },
+];
+
+const PAYMENT_PLAN_TEMPLATE = {
+  title: 'Payment plan request',
+  text: `Subject: Request for an instalment arrangement – [Student number]
+
+Dear Finance Office,
+
+I am [Full name], student number [Student number], registered for [Qualification].
+
+My outstanding balance is R[Amount]. I am unable to pay it in one amount, and I would like to ask for an instalment arrangement.
+
+I can pay R[Amount] on the [Day] of each month, starting on [Date], until the balance is cleared.
+
+Please confirm whether this is acceptable and whether a hold will be placed on my account while I keep to the arrangement.
+
+Kind regards,
+[Full name]
+[Phone number] | [Email]`,
+};
+
+
+CONFIG.quickLinks.find(l => l.id === 'nsfas').modes = ['nsfas'];
+CONFIG.quickLinks.push({ id: 'sponsor', label: 'Sponsor', url: '', modes: ['bursary'], about: 'Your bursary sponsor’s website or student portal.' });
+CONFIG.templates.find(t => t.id === 'nsfas').modes = ['nsfas'];
+CONFIG.templates.push(
+  { id: 'results', modes: ['bursary'], title: 'Send my results to my sponsor',
+    text: `Subject: Academic results for [Year] – [Student number]
+
+Dear [Contact person],
+
+I am [Full name], student number [Student number], a [Sponsor name] bursary holder studying [Qualification] at [Institution].
+
+Please find my results for [Semester/Year] attached. My average is [Average]%, and I have passed [Number] of [Number] modules.
+
+Please confirm that you have received them, and let me know if you need anything else to renew my bursary.
+
+Kind regards,
+[Full name]
+[Phone number] | [Email]` },
+  { id: 'bursarycond', modes: ['bursary'], title: 'Bursary conditions: extension or review',
+    text: `Subject: Request regarding my bursary conditions – [Student number]
+
+Dear [Contact person],
+
+I am [Full name], student number [Student number], a [Sponsor name] bursary holder studying [Qualification].
+
+I am writing about my [average / number of modules passed] for [Year]. My average is [Average]% and the condition is [Required]%.
+
+What affected my results:
+[Explain honestly]
+
+What I am doing to improve:
+[Tutoring, reduced load, support services]
+
+I would like to ask whether [an extension / a review / conditional continuation] is possible.
+
+Supporting documents attached: [List documents]
+
+Kind regards,
+[Full name]
+[Phone number] | [Email]` },
+  { id: 'payplan', modes: ['self'], ...PAYMENT_PLAN_TEMPLATE },
+ 
+  { id: 'missingpay', modes: ['nsfas', 'bursary'], title: 'Missing payout letter', open: () => openMissingPayoutSheet() });
+
+
+async function saveSelf(patch) {
+  const body = { ...state.selfFunded, ...patch };
+  state.selfFunded = await api('/money/self', { method: 'PUT', body });
+}
+
+async function setMode(mode) {
+  try {
+    await api('/money/mode', { method: 'PUT', body: { mode } });
+    state.fundingMode = mode;
+    renderAll();
+  } catch (e) { toast(e.message); }
+}
+
+function openModeSheet() {
+  openSheet('How are you funded?', [
+    h('p', { class: 'muted', text: 'Your choice is saved. Your amounts and details for each type are kept if you switch back.' }),
+    ...MODES.map(([k, label, sub]) =>
+      h('button', { class: 'btn block' + (state.fundingMode === k ? ' yellow' : ''), style: 'flex-direction:column;min-height:56px;gap:2px', 'aria-pressed': String(state.fundingMode === k),
+        onclick: async () => { closeSheet(); if (state.fundingMode !== k) await setMode(k); } },
+        h('span', { text: label }), h('span', { class: 'muted', text: sub }))),
+  ]);
+}
+
+
+function listEditor(items, makeRow, blank, addText) {
+  const box = h('div', { class: 'stack' });
+  let rows = [];
+  const add = item => {
+    const r = makeRow(item, () => { rows = rows.filter(x => x !== r); r.el.remove(); });
+    rows.push(r); box.append(r.el);
+  };
+  items.forEach(add);
+  return {
+    el: h('div', { class: 'stack' }, box, h('button', { class: 'btn small block', text: addText, onclick: () => add(blank()) })),
+    read: () => rows.map(r => r.read()),
+  };
+}
+
+function moneyRow(labelKey, labelPh) {
+  return (item, remove) => {
+    const label = h('input', { class: 'input', placeholder: labelPh, value: item[labelKey] || '', maxlength: 40, 'aria-label': labelPh });
+    const amt = h('input', { class: 'input', type: 'number', inputmode: 'decimal', min: 0, placeholder: 'R / month', value: item.amount ?? '', 'aria-label': 'Amount in rand per month' });
+    return {
+      el: h('div', { style: 'display:grid;grid-template-columns:1fr 104px 36px;gap:6px;align-items:center' },
+        label, amt, h('button', { class: 'icon-btn', 'aria-label': 'Remove', text: '✕', onclick: remove })),
+      read: () => ({ [labelKey]: label.value, amount: amt.value }),
+    };
+  };
+}
+
+function instalmentRow(item, remove) {
+  const label = h('input', { class: 'input', placeholder: 'e.g. Instalment 2', value: item.label || '', maxlength: 40, 'aria-label': 'Instalment name' });
+  const amt = h('input', { class: 'input', type: 'number', inputmode: 'decimal', min: 0, placeholder: 'Amount (R)', value: item.amount ?? '', 'aria-label': 'Instalment amount' });
+  const due = h('input', { class: 'input', type: 'date', value: item.due || '', 'aria-label': 'Due date' });
+  return {
+    el: h('div', { class: 'card', style: 'box-shadow:none;padding:10px' },
+      h('div', { style: 'display:grid;grid-template-columns:1fr 36px;gap:6px' }, label,
+        h('button', { class: 'icon-btn', 'aria-label': 'Remove instalment', text: '✕', onclick: remove })),
+      h('div', { class: 'form-grid', style: 'margin-top:6px' }, amt, due)),
+    read: () => ({ label: label.value, amount: amt.value, due: due.value, paid: !!item.paid }),
+  };
+}
+
+
+function healthCard() {
+  const mo = moneyIns(), hl = mo && mo.health, mode = state.fundingMode;
+  const title = h('p', { class: 'eyebrow', text: HEALTH_TITLE[mode] });
+  if (!hl) return h('div', { class: 'card' }, title, h('p', { class: 'muted', text: 'Checking…' }));
+
+  const [chipClass, chipText] = STATUS_UI[hl.status] || STATUS_UI.unknown;
+  const tint = hl.status === 'risk' ? 'soft-navy' : hl.status === 'ok' ? '' : 'soft-yellow';
+
+  
+  const blocks = mode === 'nsfas' && hl.enrolled && hl.enrolled <= 16
+    ? h('div', { class: 'steps', 'aria-hidden': 'true' }, Array.from({ length: hl.enrolled }, (_, i) =>
+        h('i', { class: i < hl.passed ? 'on' : i >= hl.enrolled - hl.failed ? 'bad' : '' })))
+    : null;
+
+  const edit = { nsfas: ['Update my modules', openNsfasSheet], bursary: ['Update my bursary', openBursarySheet], self: ['Update my fees', openFeesSheet] }[mode];
+  return h('div', { class: 'card ' + tint },
+    h('div', { class: 'row' }, title, h('span', { class: 'chip ' + chipClass, text: chipText })),
+    h('p', { class: 'heading', text: hl.headline }),
+    blocks,
+    h('p', { class: 'muted', style: 'margin-top:6px', text: hl.detail }),
+    hl.exam && h('p', { class: 'eyebrow', style: 'margin-top:6px', text: hl.exam }),
+    h('button', { class: 'btn small block', style: 'margin-top:10px', text: edit[0], onclick: edit[1] }));
+}
+
+function forecastCard() {
+  const mo = moneyIns(), f = mo && mo.forecast, p = mo && mo.payout;
+  const title = h('p', { class: 'eyebrow', text: 'Will my money last?' });
+  if (!f) return h('div', { class: 'card' }, title, h('p', { class: 'muted', text: 'Checking…' }));
+  if (!f.ready) {
+    return h('div', { class: 'card soft-yellow' }, title,
+      h('p', { class: 'heading', text: 'Add what you have and what you spend' }),
+      h('p', { class: 'muted', text: 'I will tell you how many days your money lasts and warn you before it runs out.' }),
+      h('button', { class: 'btn navy block', style: 'margin-top:8px', text: 'Set up forecast', onclick: openWalletSheet }));
+  }
+
+  const label = p.label;
+  const when = f.daysToPayout === 0 ? 'is today' : `is in ${pl(f.daysToPayout, 'day')}`;
+  let headline, tint = '';
+  if (p.late) {
+    headline = `Your ${label} is ${pl(p.daysLate, 'day')} late. Your cash lasts about ${pl(f.daysCash, 'day')}.`;
+    tint = f.status === 'ok' ? '' : f.status === 'tight' ? 'soft-yellow' : 'soft-navy';
+  } else if (f.status === 'ok') {
+    headline = `Yes. Your money lasts about ${pl(f.daysCash, 'day')}, and your ${label} ${when}.`;
+  } else if (f.status === 'tight') {
+    headline = `Tight. You have ${pl(f.daysCash, 'day')} of money and your ${label} ${when}.`;
+    tint = 'soft-yellow';
+  } else {
+    const gap = f.daysToPayout - f.daysCash;
+    headline = `You may run out ${pl(gap, 'day')} before your ${label}, about ${rr(f.shortfall)} short.`;
+    tint = 'soft-navy';
+  }
+
+  const notes = [];
+  if (f.status !== 'ok' && f.perDayLimit != null && !p.late) notes.push(`Keep spending under ${rr(f.perDayLimit)} a day to make it.`);
+  if (f.status !== 'ok') notes.push(`At this pace the money runs out ${friendlyDate(f.runOutDate)}.`);
+  else notes.push(`${p.late ? 'Last expected' : 'Next expected'}: ${friendlyDate(p.date)}.`);
+
+  const pct = p.late ? 0 : Math.min(100, Math.round(f.daysCash / Math.max(f.daysToPayout, 1) * 100));
+  const missingLetter = p.late && state.fundingMode !== 'self';
+  return h('div', { class: 'card ' + tint },
+    title,
+    h('p', { class: 'heading', text: headline }),
+    !p.late && h('div', { class: 'track', style: 'margin-top:8px', role: 'img', 'aria-label': `Cash covers ${pct}% of the days until your ${label}` }, h('b', { style: `width:${pct}%` })),
+    h('p', { class: 'muted', style: 'margin-top:6px', text: notes.join(' ') }),
+    h('div', { class: 'btn-row', style: 'margin-top:10px' },
+      h('button', { class: 'btn small', text: 'Edit my numbers', onclick: openWalletSheet }),
+      missingLetter && h('button', { class: 'btn small navy', text: 'Write appeal letter', onclick: openMissingPayoutSheet })));
+}
+
+
+function allowanceCards() {
+  const m = state.money;
+  const empty = ['tuition', 'accommodation', 'food', 'books'].every(k => m[k] == null);
+  const cards = [
+    ['Tuition covered', rand(m.tuition), m.owing != null ? `You owe: ${rand(m.owing)}` : 'Not added yet', 'soft-yellow'],
+    ['Accommodation',   rand(m.accommodation), 'per month', ''],
+    ['Food stipend',    rand(m.food), 'monthly', ''],
+    ['Book allowance',  rand(m.books), 'left this year', 'soft-navy'],
+  ];
+  
+  return h('div', { class: 'stack' },
+    h('div', { class: 'grid2' }, cards.map(([a, b, c, tint]) =>
+      h('div', { class: `card ${tint}` },
+        h('p', { class: 'eyebrow', text: a }), h('p', { class: 'heading', text: b }), h('p', { class: 'eyebrow', style: 'margin-top:4px', text: c })))),
+    h('button', { class: 'btn navy big block pressable', text: empty ? 'Enter my amounts' : 'Update my amounts', onclick: openMoneySheet }));
+}
+
+const PAYOUT_UI = {
+  received:    ['yellow', 'Received'],
+  missing:     ['navy', 'Missing'],
+  expected:    ['', 'Expected'],
+  late:        ['navy', 'Late'],
+  unconfirmed: ['', 'Not recorded'],
+};
+
+
+function payoutSub(r) {
+  const amt = r.amount != null ? rr(r.amount) + ' · ' : '';
+  if (r.status === 'received') return amt + 'you marked it received';
+  if (r.status === 'missing') return amt + 'you reported it missing';
+  if (r.status === 'late') return amt + `${pl(r.daysLate, 'day')} late. Did it arrive?`;
+  if (r.status === 'expected') return amt + `expected ${friendlyDate(r.date)}`;
+  return amt + 'tap to record what happened';
+}
+
+async function logPayout(r) {
+  const next = r.status === 'received' ? 'missing' : r.status === 'missing' ? 'clear' : 'received';
+  try {
+    const res = await api(`/payouts/${r.key}`, { method: 'PUT', body: { status: next } });
+    state.payoutLog = res.payoutLog;
+    await refreshInsights();
+  } catch (e) { toast(e.message); }
+}
+
+function payoutCard() {
+  const mo = moneyIns(), p = mo && mo.payout, rows = (mo && mo.payoutRows) || [];
+  const needsHelp = rows.some(r => r.status === 'missing' || r.status === 'late');
+  return h('div', { class: 'card' },
+    h('p', { class: 'eyebrow' }, 'Payout log ', h('span', { class: 'muted', text: '· tap a month to log it' })),
+    p && h('p', { class: 'muted', style: 'margin-top:4px',
+      text: p.late ? `This month's payout is ${pl(p.daysLate, 'day')} late. If it arrived, tap the month to mark it received. If not, report it.`
+                   : `Next payout expected ${friendlyDate(p.date)}.` }),
+    mo && mo.pattern && h('p', { class: 'eyebrow', style: 'margin-top:6px', text: mo.pattern.text }),
+    h('div', { style: 'margin-top:6px' }, rows.length ? rows.map(r => {
+      const [cls, text] = PAYOUT_UI[r.status] || PAYOUT_UI.unconfirmed;
+      return h('button', { class: 'row', 'aria-label': `${r.label}: ${text}. Tap to change.`, onclick: () => logPayout(r) },
+        h('span', { class: 'label' }, r.label, h('small', { text: payoutSub(r) })),
+        h('span', { class: 'chip ' + cls, text }));
+    }) : h('p', { class: 'muted', text: 'Checking…' })),
+    h('p', { class: 'muted', style: 'margin-top:6px', text: 'Tap once for Received, again for Missing, a third time to reset.' }),
+    needsHelp && h('button', { class: 'btn navy block', style: 'margin-top:8px', text: 'Report a missing payout', onclick: openMissingPayoutSheet }));
+}
+
+
+function nsfasStatusCard() {
+  return h('button', { class: 'card soft-navy pressable', onclick: async () => {
+      const next = (state.nsfasStep + 1) % 4;
+      try {
+        await api('/money/nsfas', { method: 'PATCH', body: { nsfasStep: next } });
+        state.nsfasStep = next;
+        renderAll();
+      } catch (e) { toast(e.message); }
+    } },
+    h('p', { class: 'eyebrow', text: 'NSFAS application · tap to update' }),
+    h('p', { class: 'heading', text: NSFAS_TEXT[state.nsfasStep] }),
+    h('div', { class: 'steps' }, [1, 2, 3].map(i => h('i', { class: i <= state.nsfasStep ? 'on' : '' }))));
+}
+
+function appealCard() {
+  return h('div', { class: 'card' },
+    h('p', { class: 'eyebrow', text: 'Appeal checklist' }),
+    h('p', { class: 'muted', style: 'margin-top:4px', text: 'Documents an appeal usually needs. Confirm the exact list with NSFAS.' }),
+    h('div', { style: 'margin-top:6px' }, APPEAL_DOCS.map(([name, re]) => {
+      const have = state.files.some(f => re.test(f.name));
+      return h('button', { class: 'row', 'data-go': 'vault', 'aria-label': `${name}: ${have ? 'in your vault' : 'missing'}. Open the vault.` },
+        h('span', { class: 'label', text: name }), h('span', { class: 'chip ' + (have ? 'yellow' : 'navy'), text: have ? 'In vault' : 'Missing' }));
+    })));
+}
+
+
+function sponsorCard() {
+  const b = state.bursary;
+  const lines = [];
+  if (b.covers) lines.push(['Covers', b.covers]);
+  if (b.contact) lines.push(['Contact', b.contact]);
+  if (b.endDate) {
+    const n = daysUntil(b.endDate);
+    lines.push(['Contract ends', `${fullDate(b.endDate)}${n >= 0 ? ` (${pl(n, 'day')} left)` : ' (ended)'}`]);
+  }
+  return h('div', { class: 'card soft-yellow' },
+    h('p', { class: 'eyebrow', text: 'Your sponsor' }),
+    h('p', { class: 'heading', text: b.sponsor || 'Add your sponsor' }),
+    lines.length
+      ? lines.map(([k, v]) => h('p', { class: 'eyebrow', style: 'margin-top:4px', text: `${k}: ${v}` }))
+      : h('p', { class: 'muted', text: 'Who pays, what they cover, and when the contract ends.' }));
+}
+
+
+async function toggleInstalment(i) {
+  const s = state.selfFunded;
+  const instalments = s.instalments.map(x => (x.id === i.id ? { ...x, paid: !x.paid } : x));
+  const feesPaid = Math.max(0, (s.feesPaid || 0) + (i.paid ? -1 : 1) * (i.amount || 0));
+  try { await saveSelf({ instalments, feesPaid }); renderAll(); } catch (e) { toast(e.message); }
+}
+
+
+function openProofOfPayment() {
+  const link = CONFIG.quickLinks.find(l => l.id === 'fees');
+  const url = state.links[link.id] || link.url;
+  if (url) window.open(url, '_blank', 'noopener');
+  else openLinkSheet(link);
+}
+
+function feesCard() {
+  const s = state.selfFunded;
+  const total = s.feesTotal, paid = s.feesPaid || 0;
+  const owing = total != null ? Math.max(0, total - paid) : null;
+  const pct = total > 0 ? Math.min(100, Math.round(paid / total * 100)) : 0;
+  const today = toISO(new Date());
+  const list = [...s.instalments].sort((a, b) => a.due.localeCompare(b.due));
+  return h('div', { class: 'card soft-yellow' },
+    h('p', { class: 'eyebrow' }, 'Fees tracker ', h('span', { class: 'muted', text: '· tap an instalment when you pay it' })),
+    h('div', { class: 'row' },
+      h('p', { class: 'heading', text: owing != null ? `${rr(owing)} still owing` : 'Add your fees' }),
+      total != null && h('span', { class: 'chip', text: `${pct}% paid` })),
+    total != null && h('div', { class: 'track', style: 'margin-top:6px', role: 'img', 'aria-label': `${pct}% of fees paid` }, h('b', { style: `width:${pct}%` })),
+    total != null && h('p', { class: 'muted', style: 'margin-top:4px', text: `Paid ${rr(paid)} of ${rr(total)}` }),
+    h('div', { style: 'margin-top:6px' }, list.map(i => {
+      const n = daysUntil(i.due);
+      const chip = i.paid ? h('span', { class: 'chip yellow', text: 'Paid' })
+        : i.due < today ? h('span', { class: 'chip navy', text: 'Overdue' })
+        : h('span', { class: 'chip' + (n <= 7 ? ' navy' : ''), text: n === 0 ? 'Due today' : `${pl(n, 'day')} left` });
+      return h('div', { class: 'row' + (i.paid ? ' done' : '') },
+        h('button', { class: 'row', style: 'flex:1', role: 'checkbox', 'aria-checked': String(!!i.paid), onclick: () => toggleInstalment(i) },
+          h('span', { class: 'tick', text: i.paid ? '✓' : '' }),
+          h('span', { class: 'label' }, i.label, h('small', { text: `${rr(i.amount)} · ${fullDate(i.due)}` }))),
+        chip);
+    })),
+    h('div', { class: 'btn-row', style: 'margin-top:8px' },
+      h('button', { class: 'btn small', text: 'Edit fees and instalments', onclick: openFeesSheet }),
+      h('button', { class: 'btn small navy', text: 'Get proof of payment', onclick: openProofOfPayment })));
+}
+
+function budgetCard() {
+  const s = state.selfFunded;
+  const income = s.income.reduce((a, x) => a + (Number(x.amount) || 0), 0);
+  const spend = s.budget.reduce((a, x) => a + (Number(x.amount) || 0), 0);
+  const left = income - spend;
+  const rows = (arr, key) => arr.length
+    ? arr.map(x => h('div', { class: 'row' }, h('span', { class: 'label', text: x[key] }), h('span', { class: 'chip', text: rr(x.amount) })))
+    : h('p', { class: 'muted', text: 'Nothing added yet.' });
+  return h('div', { class: 'card' },
+    h('div', { class: 'row' }, h('p', { class: 'eyebrow', text: 'Monthly budget' }),
+      (income > 0 || spend > 0) && h('span', { class: 'chip ' + (left < 0 ? 'navy' : 'yellow'), text: left < 0 ? `${rr(-left)} short` : `${rr(left)} left` })),
+    h('p', { class: 'heading', text: 'Money in' }), rows(s.income, 'label'),
+    h('p', { class: 'heading', text: 'Money out' }), rows(s.budget, 'category'),
+    h('button', { class: 'btn small block', style: 'margin-top:8px', text: 'Edit income and budget', onclick: openBudgetSheet }));
+}
+
+function finderCard() {
+  return h('div', { class: 'card soft-navy' },
+    h('p', { class: 'eyebrow', text: 'Bursaries you could apply for' }),
+    h('p', { class: 'muted', style: 'margin-top:4px', text: 'A sample list. Always confirm requirements and closing dates on the sponsor’s website.' }),
+    h('div', { style: 'margin-top:6px' }, BURSARY_FINDER.map(b => {
+      const n = b.closes ? daysUntil(b.closes) : null;
+      return h('div', { class: 'row' },
+        h('span', { class: 'label' }, b.name, h('small', { text: b.about })),
+        h('span', { class: 'chip' + (n != null && n >= 0 && n <= 30 ? ' navy' : ''), text: n == null ? 'Check closing date' : n < 0 ? 'Closed' : `Closes ${friendlyDate(b.closes)}` }));
+    })),
+    h('button', { class: 'btn block', style: 'margin-top:8px', text: 'Ask for a payment plan', onclick: () => openTemplateSheet(PAYMENT_PLAN_TEMPLATE) }));
+}
+
+
+function renderMoney() {
+  if (!state) return;
+  const mode = state.fundingMode;
+  let kids;
+  if (!mode) {
+    kids = [h('div', { class: 'card soft-navy' },
+      h('p', { class: 'heading', text: 'How are you funded?' }),
+      h('p', { class: 'muted', style: 'margin:4px 0 10px', text: 'Pick one and the Money Hub shows what matters to you. You can switch any time.' }),
+      h('div', { class: 'stack' }, MODES.map(([k, label, sub]) =>
+        h('button', { class: 'btn block pressable', style: 'flex-direction:column;min-height:64px;gap:2px', onclick: () => setMode(k) },
+          h('span', { text: label }), h('span', { class: 'muted', text: sub })))))];
+  } else {
+    kids = [healthCard(), forecastCard()];
+    if (mode === 'nsfas') kids.push(nsfasStatusCard(), allowanceCards(), payoutCard(), appealCard());
+    if (mode === 'bursary') kids.push(allowanceCards(), sponsorCard(), payoutCard());
+    if (mode === 'self') kids.push(feesCard(), budgetCard(), finderCard());
+    kids.push(h('button', { class: 'btn small block', text: 'Change how I am funded', onclick: openModeSheet }));
+  }
+  fill($('#money-view'), kids);
+}
+
+
+function openMoneySheet() {
+  const m = state.money, inputs = {};
+  const mk = (key, label) => {
+    inputs[key] = h('input', { class: 'input', type: 'number', inputmode: 'decimal', min: 0, placeholder: 'Rand', value: m[key] ?? '' });
+    return field(label, inputs[key]);
+  };
+  openSheet('Your amounts', [
+    mk('tuition', 'Tuition covered (R)'), mk('owing', 'You still owe (R)'),
+    mk('accommodation', 'Accommodation per month (R)'), mk('food', 'Food stipend per month (R)'), mk('books', 'Book allowance left (R)'),
+    h('button', { class: 'btn navy block', text: 'Save', onclick: async () => {
+      const body = {};
+      for (const k in inputs) body[k] = numOrNull(inputs[k].value);
+      try {
+        await api('/money/amounts', { method: 'PUT', body });
+        Object.assign(state.money, body);
+        closeSheet();
+        renderAll();
+        toast('Saved');
+      } catch (e) { toast(e.message); }
+    } }),
+  ]);
+}
+
+function openWalletSheet() {
+  const w = state.wallet, self = state.fundingMode === 'self';
+  const mk = (value, props) => h('input', { class: 'input', type: 'number', inputmode: 'decimal', min: 0, value: value ?? '', ...props });
+  const bal = mk(w.balance, { placeholder: 'Rand' });
+  const wk = mk(w.weeklySpend, { placeholder: 'Rand' });
+  const day = mk(w.payoutDay ?? 25, { inputmode: 'numeric', min: 1, max: 28 });
+  const budget = state.selfFunded.budget.reduce((a, x) => a + (Number(x.amount) || 0), 0);
+  openSheet('Will my money last?', [
+    h('p', { class: 'muted', text: 'Amounts only. Never type bank or card numbers here.' }),
+    field('Money I have right now (R)', bal),
+    field('What I spend in a normal week (R)', wk),
+    self && budget > 0 && h('p', { class: 'muted', text: `Your budget adds up to ${rr(budget)} a month, about ${rr(budget / 4.33)} a week.` }),
+    field(self ? 'Day of the month my money arrives (1–28)' : 'Day of the month my payout arrives (1–28)', day),
+    h('button', { class: 'btn navy block', text: 'Save', onclick: async () => {
+      try {
+        state.wallet = await api('/money/wallet', { method: 'PUT', body: { balance: bal.value, weeklySpend: wk.value, payoutDay: day.value } });
+        closeSheet(); renderAll(); toast('Saved');
+      } catch (e) { toast(e.message); }
+    } }),
+  ]);
+}
+
+function openNsfasSheet() {
+  const p = state.nsfasProgress;
+  const mk = (value, props) => h('input', { class: 'input', type: 'number', inputmode: 'numeric', min: 0, max: 60, value: value ?? '', ...props });
+  const enrolled = mk(p.enrolled, {}), passed = mk(p.passed, {}), failed = mk(p.failed, {});
+  const rate = mk(p.minRate ?? 55, { min: 1, max: 100 });
+  openSheet('Your modules this year', [
+    h('p', { class: 'muted', text: 'NSFAS looks at how many of your modules you pass in a year. Reports put the bar at 50% for first-time students and 55% for continuing university students, so check your funding letter and change it below if yours is different.' }),
+    field('Modules I am taking this year', enrolled),
+    h('div', { class: 'form-grid' }, field('Passed so far', passed), field('Failed so far', failed)),
+    field('Pass rate NSFAS asks for (%)', rate),
+    h('button', { class: 'btn navy block', text: 'Save', onclick: async () => {
+      try {
+        state.nsfasProgress = await api('/money/nsfas-progress', { method: 'PUT', body: { enrolled: enrolled.value, passed: passed.value, failed: failed.value, minRate: rate.value } });
+        closeSheet(); renderAll(); toast('Saved');
+      } catch (e) { toast(e.message); }
+    } }),
+  ]);
+}
+
+function openBursarySheet() {
+  const b = state.bursary;
+  const txt = (value, ph) => h('input', { class: 'input', value: value || '', placeholder: ph, maxlength: 80 });
+  const num = (value, ph) => h('input', { class: 'input', type: 'number', inputmode: 'decimal', min: 0, max: 100, value: value ?? '', placeholder: ph });
+  const sponsor = txt(b.sponsor, 'e.g. Sasol'), contact = txt(b.contact, 'Name and email or phone'), covers = txt(b.covers, 'e.g. Tuition + allowance');
+  const end = h('input', { class: 'input', type: 'date', value: b.endDate || '' });
+  const minAvg = num(b.minAvg, 'e.g. 62'), curAvg = num(b.currentAvg, 'Empty = use my marks');
+  const minMods = num(b.minModules, 'e.g. 6'), modsPassed = num(b.modulesPassed, 'e.g. 3');
+  openSheet('Your bursary', [
+    field('Sponsor', sponsor), field('Contact person', contact), field('What they cover', covers), field('Contract ends', end),
+    h('p', { class: 'heading', text: 'Their conditions' }),
+    h('div', { class: 'form-grid' }, field('Minimum average (%)', minAvg), field('My average now (%)', curAvg)),
+    h('div', { class: 'form-grid' }, field('Modules I must pass', minMods), field('Passed so far', modsPassed)),
+    h('button', { class: 'btn navy block', text: 'Save', onclick: async () => {
+      try {
+        state.bursary = await api('/money/bursary', { method: 'PUT', body: {
+          sponsor: sponsor.value, contact: contact.value, covers: covers.value, endDate: end.value || null,
+          minAvg: minAvg.value, currentAvg: curAvg.value, minModules: minMods.value, modulesPassed: modsPassed.value } });
+        closeSheet(); renderAll(); toast('Saved');
+      } catch (e) { toast(e.message); }
+    } }),
+  ]);
+}
+
+function openFeesSheet() {
+  const s = state.selfFunded;
+  const total = h('input', { class: 'input', type: 'number', inputmode: 'decimal', min: 0, placeholder: 'Rand', value: s.feesTotal ?? '' });
+  const paid = h('input', { class: 'input', type: 'number', inputmode: 'decimal', min: 0, placeholder: 'Rand', value: s.feesPaid ?? '' });
+  const list = listEditor(s.instalments, instalmentRow, () => ({ label: '', amount: '', due: inDays(30), paid: false }), '+ Add an instalment');
+  openSheet('Your fees', [
+    h('div', { class: 'form-grid' }, field('Total fees (R)', total), field('Paid so far (R)', paid)),
+    h('p', { class: 'heading', text: 'Instalments' }),
+    h('p', { class: 'muted', text: 'Add each due date and I will remind you on WhatsApp before it becomes a fee hold.' }),
+    list.el,
+    h('button', { class: 'btn navy block', text: 'Save', onclick: async () => {
+      try {
+        await saveSelf({ feesTotal: total.value, feesPaid: paid.value, instalments: list.read() });
+        closeSheet(); renderAll(); toast('Saved');
+      } catch (e) { toast(e.message); }
+    } }),
+  ]);
+}
+
+function openBudgetSheet() {
+  const s = state.selfFunded;
+  const income = listEditor(s.income, moneyRow('label', 'e.g. Parents'), () => ({ label: '', amount: '' }), '+ Add income');
+  const budget = listEditor(s.budget, moneyRow('category', 'e.g. Rent'), () => ({ category: '', amount: '' }), '+ Add a cost');
+  openSheet('Income and budget', [
+    h('p', { class: 'heading', text: 'Money in each month' }), income.el,
+    h('p', { class: 'heading', text: 'Money out each month' }),
+    h('p', { class: 'muted', text: 'Rent, food, transport, data, books and so on.' }), budget.el,
+    h('button', { class: 'btn navy block', text: 'Save', onclick: async () => {
+      try {
+        await saveSelf({ income: income.read(), budget: budget.read() });
+        closeSheet(); renderAll(); toast('Saved');
+      } catch (e) { toast(e.message); }
+    } }),
+  ]);
+}
+
+function openMissingPayoutSheet() {
+  const rows = (moneyIns() && moneyIns().payoutRows) || [];
+  const miss = rows.filter(r => r.status === 'missing' || r.status === 'late').map(r => r.label);
+  const months = miss.length ? miss.join(', ') : '[Month]';
+  const text = `Subject: Missing NSFAS allowance payment – [Student number]\n\nDear NSFAS / Funding Office,\n\nI am [Full name], student number [Student number]. I have not received my allowance for: ${months}.\n\nPlease confirm the payment status and expected payment date.\n\nKind regards,\n[Full name]\n[Phone number]`;
+  const box = h('textarea', { class: 'input' }); box.value = text;
+  openSheet('Report a missing payout', [
+    h('p', { class: 'muted', text: 'Fill in the [brackets], then copy and send it.' }), box,
+    h('button', { class: 'btn navy block', text: 'Copy', onclick: async () => toast((await copyText(box.value)) ? 'Copied – fill in the [brackets]' : 'Could not copy') }),
+  ]);
+}
+
+
+const pendingTasks = () => state.tasks.filter(t => !t.done).sort((a, b) => a.due.localeCompare(b.due) || b.weight - a.weight);
+
+const DAY_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+let ttDay = new Date().getDay();  
+
+function classesOnDay(day) {
+  return state.timetable.filter(c => !c.days || c.days.includes(day)).sort((a, b) => a.time.localeCompare(b.time));
+}
+
+function renderStudy() {
+  if (!state) return;
+  const sorted = [...pendingTasks(), ...state.tasks.filter(t => t.done).sort((a, b) => a.due.localeCompare(b.due))];
+  fill($('#study-tasks'), sorted.length ? sorted.map(t =>
+    h('div', { class: 'row' + (t.done ? ' done' : '') },
+      h('button', { class: 'row', style: 'flex:1', role: 'checkbox', 'aria-checked': String(t.done),
+          onclick: async () => {
+            try {
+              await api(`/tasks/${t.id}`, { method: 'PATCH', body: { done: !t.done } });
+              t.done = !t.done;
+              renderAll();
+            } catch (e) { toast(e.message); }
+          } },
+        h('span', { class: 'tick', text: t.done ? '✓' : '' }),
+        h('span', { class: 'label' }, t.title, h('small', { text: `Due ${friendlyDate(t.due)}` }))),
+      h('button', { class: 'icon-btn', 'aria-label': `Delete ${t.title}`, text: '✕',
+          onclick: async () => {
+            try {
+              await api(`/tasks/${t.id}`, { method: 'DELETE' });
+              state.tasks = state.tasks.filter(x => x.id !== t.id);
+              renderAll();
+            } catch (e) { toast(e.message); }
+          } })))
+    : h('p', { class: 'muted', text: 'Nothing due. Add a task below.' }));
+
+ 
+  fill($('#study-days'), [1, 2, 3, 4, 5, 6, 0].map(d =>
+    h('button', { class: 'btn small' + (d === ttDay ? ' yellow' : ''), style: 'flex:1;padding:0', text: DAY_SHORT[d],
+      'aria-pressed': String(d === ttDay), onclick: () => { ttDay = d; renderStudy(); } })));
+  const dayClasses = classesOnDay(ttDay);
+  fill($('#study-timetable'), dayClasses.length ? dayClasses.map(c =>
+    h('div', { class: 'row' },
+      h('span', { class: 'label' }, c.title, h('small', { text: (c.days || []).map(d => DAY_SHORT[d]).join(', ') })),
+      h('span', { class: 'chip yellow', text: `${c.time}${c.room ? ' · ' + c.room : ''}` }),
+      h('button', { class: 'icon-btn', 'aria-label': `Delete ${c.title}`, text: '✕',
+          onclick: async () => {
+            try {
+              await api(`/timetable/${c.id}`, { method: 'DELETE' });
+              state.timetable = state.timetable.filter(x => x.id !== c.id);
+              renderAll();
+            } catch (e) { toast(e.message); }
+          } })))
+    : h('p', { class: 'muted', text: ttDay === new Date().getDay() ? 'No classes today.' : 'No classes this day.' }));
+
+  renderMarks();
+}
+
+
+const acad = () => (state && ((state.insights && state.insights.academics) || state.academics)) || { modules: [], count: 0, marked: 0, average: null, focus: null };
+const STATUS_LABEL = { ok: 'On track', watch: 'Keep an eye', risk: 'Needs work', unknown: 'No marks yet' };
+const SAMPLE_MODULES = [
+  { name: 'Statistics', assessments: [{ name: 'Test 1', weight: 20, mark: 68 }, { name: 'Assignment', weight: 20, mark: 70 }, { name: 'Exam', weight: 60, mark: null }] },
+  { name: 'Economics', assessments: [{ name: 'Test 1', weight: 20, mark: 40 }, { name: 'Assignment', weight: 20, mark: 45 }, { name: 'Exam', weight: 60, mark: null }] },
+  { name: 'Law', assessments: [{ name: 'Test 1', weight: 20, mark: 55 }, { name: 'Assignment', weight: 20, mark: null }, { name: 'Exam', weight: 60, mark: null }] },
+];
+const STARTER_ASSESSMENTS = () => [{ name: 'Test 1', weight: 20, mark: null }, { name: 'Assignment', weight: 20, mark: null }, { name: 'Exam', weight: 60, mark: null }];
+
+function chosenModuleId(mods) {
+  let saved = null;
+  try { saved = Number(localStorage.getItem('lockedin.module')); } catch (e) { /* private window */ }
+  const m = mods.find(x => x.id === saved) || mods[0];
+  return m ? m.id : null;
+}
+function rememberModule(id) { try { localStorage.setItem('lockedin.module', String(id)); } catch (e) { /* fine */ } }
+
+async function saveModules(modules, focusKey) {
+  try {
+    const r = await api('/modules', { method: 'PUT', body: { modules } });
+    state.modules = r.modules;
+    state.academics = r.academics;
+    if (state.insights) state.insights.academics = r.academics;
+    renderAll();
+    if (focusKey) { const el = document.querySelector(`[data-mark="${focusKey}"]`); if (el) el.focus(); }
+    return true;
+  } catch (e) { toast(e.message); renderMarks(); return false; }
+}
+
+function renderMarks() {
+  const box = $('#study-marks');
+  if (!box || !state) return;
+  const mods = state.modules || [];
+  const ac = acad();
+
+  if (!mods.length) {
+    box.className = 'card soft-yellow';
+    fill(box,
+      h('p', { class: 'eyebrow', text: 'Your marks' }),
+      h('p', { class: 'heading', text: 'Add your modules once' }),
+      h('p', { class: 'muted', text: 'Then enter each test, assignment and exam mark. I will work out what you are sitting on and which module needs work.' }),
+      h('button', { class: 'btn navy block', style: 'margin-top:10px', text: 'Add my modules', onclick: () => openAddModules() }),
+      h('button', { class: 'btn small block', style: 'margin-top:8px', text: 'Use sample modules to try it', onclick: () => saveModules(SAMPLE_MODULES) }));
+    return;
+  }
+
+  const id = chosenModuleId(mods);
+  const mod = mods.find(m => m.id === id);
+  const st = ac.modules.find(m => m.id === id) || { assessments: [], status: 'unknown' };
+  box.className = 'card soft-yellow';
+
+  const summary = [
+    h('p', { class: 'eyebrow', text: 'Your marks' }),
+    ac.average != null
+      ? h('p', { class: 'heading', text: `You're sitting on ${ac.average}%` })
+      : h('p', { class: 'heading', text: 'Enter a mark to get started' }),
+    ac.average != null ? h('p', { class: 'muted', text: `Average across ${pl(ac.marked, 'module')} with marks` }) : null,
+  ];
+  if (ac.focus) {
+    summary.push(h('div', { class: 'card', style: 'box-shadow:none;margin-top:8px;padding:10px' },
+      h('p', { class: 'eyebrow', text: 'Needs the most work' }),
+      h('p', { class: 'heading', text: `${ac.focus.name} · ${ac.focus.current}%` }),
+      h('p', { class: 'muted', text: ac.focus.passNote }),
+      h('button', { class: 'btn small', style: 'margin-top:6px', text: 'Open it', onclick: () => { rememberModule(ac.focus.id); renderMarks(); } })));
+  } else if (ac.marked) {
+    summary.push(h('p', { class: 'muted', style: 'margin-top:6px', text: 'No module needs urgent attention right now. Keep it up.' }));
+  }
+
+  const select = h('select', { class: 'input', 'aria-label': 'Choose a module', style: 'flex:1',
+    onchange: e => { rememberModule(Number(e.target.value)); renderMarks(); } },
+    mods.map(m => h('option', { value: m.id, text: m.name, selected: m.id === id })));
+
+  const header = h('div', { class: 'btn-row', style: 'margin-top:10px;flex-wrap:nowrap;gap:6px' },
+    select,
+    h('button', { class: 'btn small', text: 'Edit', onclick: () => openModuleSheet(mod) }),
+    h('button', { class: 'btn small', text: '+ Module', onclick: () => openAddModules() }));
+
+  const rows = mod.assessments.map(a => {
+    const input = h('input', { class: 'input', type: 'number', inputmode: 'decimal', min: 0, max: 100, step: 'any',
+      placeholder: '%', value: a.mark ?? '', 'aria-label': `${a.name} mark in percent`, 'data-mark': `${mod.id}-${a.id}`, style: 'text-align:center',
+      onkeydown: e => { if (e.key === 'Enter') e.target.blur(); },
+      onchange: e => {
+        const v = e.target.value.trim();
+        const next = mods.map(m => m.id !== mod.id ? m : { ...m, assessments: m.assessments.map(x => x.id === a.id ? { ...x, mark: v === '' ? null : Number(v) } : x) });
+        saveModules(next, `${mod.id}-${a.id}`);
+      } });
+    return h('div', { style: 'display:grid;grid-template-columns:1fr 84px;gap:8px;align-items:center;margin-top:6px' },
+      h('div', {}, h('p', { class: 'heading', style: 'font-size:15px', text: a.name }), h('p', { class: 'muted', text: `Counts for ${a.weight}%` })), input);
+  });
+
+  const detail = [
+    h('div', { style: 'display:flex;justify-content:space-between;align-items:center;margin-top:12px' },
+      h('p', { class: 'heading', text: st.current != null ? `${mod.name}: ${st.current}%` : mod.name }),
+      h('span', { class: 'chip ' + (st.status === 'risk' ? 'navy' : st.status === 'ok' ? '' : 'yellow'), text: STATUS_LABEL[st.status] || '' })),
+    st.current != null ? h('div', { class: 'track', style: 'margin-top:6px', 'aria-hidden': 'true' }, h('b', { style: `width:${Math.min(100, st.markedWeight)}%` })) : null,
+    st.current != null ? h('p', { class: 'muted', text: `${st.markedWeight}% of the module marked so far` }) : null,
+    ...(rows.length ? rows : [h('p', { class: 'muted', style: 'margin-top:6px', text: 'No tests yet. Tap Edit to add them.' })]),
+    h('p', { class: 'eyebrow', style: 'margin-top:10px', text: st.passNote || '' }),
+    st.distNote ? h('p', { class: 'eyebrow', style: 'margin-top:2px', text: st.distNote }) : null,
+    st.warning ? h('p', { class: 'muted', style: 'margin-top:6px', text: st.warning }) : null,
+  ];
+  fill(box, ...summary, header, ...detail);
+}
+
+function openAddModules() {
+  const first = !(state.modules || []).length;
+  const ed = listEditor(Array.from({ length: first ? 3 : 1 }, () => ({ name: '' })), (item, remove) => {
+    const name = h('input', { class: 'input', placeholder: 'e.g. Statistics', maxlength: 40, value: item.name, 'aria-label': 'Module name' });
+    return { el: h('div', { style: 'display:grid;grid-template-columns:1fr 36px;gap:6px;align-items:center' }, name,
+      h('button', { class: 'icon-btn', 'aria-label': 'Remove', text: '✕', onclick: remove })), read: () => name.value.trim() };
+  }, () => ({ name: '' }), '+ Another module');
+  openSheet('Add your modules', [
+    h('p', { class: 'muted', text: 'Type the name of each module. You will add the tests and marks next. Blank rows are ignored.' }),
+    ed.el,
+    h('button', { class: 'btn navy block', text: 'Save modules', onclick: async () => {
+      const names = ed.read().filter(Boolean);
+      if (!names.length) return toast('Add at least one module name');
+      const mods = (state.modules || []).concat(names.map(name => ({ name, assessments: STARTER_ASSESSMENTS() })));
+      if (await saveModules(mods)) {
+        closeSheet();
+        const added = (state.modules || []).find(m => m.name === names[0]);
+        if (added) { rememberModule(added.id); renderMarks(); toast('Saved. Enter your marks, or tap Edit to change the weights.'); }
+      }
+    } }),
+  ]);
+}
+
+function openModuleSheet(mod) {
+  const name = h('input', { class: 'input', maxlength: 40, value: mod.name });
+  const ed = listEditor(mod.assessments, (a, remove) => {
+    const n = h('input', { class: 'input', placeholder: 'e.g. Test 1', maxlength: 40, value: a.name || '', 'aria-label': 'Name' });
+    const w = h('input', { class: 'input', type: 'number', inputmode: 'decimal', min: 0, max: 100, placeholder: '% of final', value: a.weight ?? '', 'aria-label': 'Counts for percent' });
+    return { el: h('div', { style: 'display:grid;grid-template-columns:1fr 92px 36px;gap:6px;align-items:center' }, n, w,
+      h('button', { class: 'icon-btn', 'aria-label': 'Remove', text: '✕', onclick: remove })),
+      read: () => ({ id: a.id, name: n.value.trim(), weight: w.value, mark: a.mark ?? null }) };
+  }, () => ({ name: '', weight: '' }), '+ Add test, assignment or exam');
+  openSheet(`Edit ${mod.name}`, [
+    field('Module name', name),
+    h('p', { class: 'eyebrow', text: 'Tests, assignments and exam' }),
+    h('p', { class: 'muted', text: 'Weights are how much each counts towards the final mark. They should add up to 100%.' }),
+    ed.el,
+    h('button', { class: 'btn navy block', text: 'Save', onclick: async () => {
+      const next = state.modules.map(m => m.id === mod.id ? { ...m, name: name.value, assessments: ed.read() } : m);
+      if (await saveModules(next)) closeSheet();
+    } }),
+    h('button', { class: 'btn small block', text: 'Delete this module', onclick: async () => {
+      if (!confirm(`Delete ${mod.name} and all its marks?`)) return;
+      if (await saveModules(state.modules.filter(m => m.id !== mod.id))) closeSheet();
+    } }),
+  ]);
+}
+
+$('#btn-add-task').onclick = () => {
+  const title = h('input', { class: 'input', placeholder: 'e.g. Statistics test', maxlength: 60 });
+  const due = h('input', { class: 'input', type: 'date', value: inDays(7) });
+  const weight = h('input', { class: 'input', type: 'number', inputmode: 'numeric', min: 0, max: 100, value: 10 });
+  openSheet('Add a task', [
+    field('What is it?', title),
+    h('div', { class: 'form-grid' }, field('Due date', due), field('Counts for (%)', weight)),
+    h('button', { class: 'btn navy block', text: 'Add task', onclick: async () => {
+      if (!title.value.trim()) return toast('Give the task a name');
+      try {
+        const task = await api('/tasks', {
+          method: 'POST',
+          body: { title: title.value.trim(), due: due.value || inDays(7), weight: Number(weight.value) || 0 },
+        });
+        state.tasks.push(task);
+        closeSheet();
+        renderAll();
+      } catch (e) { toast(e.message); }
+    } }),
+  ]);
+};
+
+$('#btn-add-class').onclick = () => {
+  const title = h('input', { class: 'input', placeholder: 'e.g. Law tutorial', maxlength: 60 });
+  const time = h('input', { class: 'input', type: 'time', value: '09:00' });
+  const room = h('input', { class: 'input', placeholder: 'e.g. Room B2', maxlength: 30 });
+ 
+  const picked = new Set([ttDay]);
+  const dayBtns = [1, 2, 3, 4, 5, 6, 0].map(d => {
+    const b = h('button', { type: 'button', class: 'btn small' + (picked.has(d) ? ' yellow' : ''), style: 'flex:1;padding:0', text: DAY_SHORT[d], 'aria-pressed': String(picked.has(d)) });
+    b.onclick = () => {
+      picked.has(d) ? picked.delete(d) : picked.add(d);
+      b.classList.toggle('yellow', picked.has(d)); b.setAttribute('aria-pressed', String(picked.has(d)));
+    };
+    return b;
+  });
+  openSheet('Add a class', [
+    field('Class', title),
+    h('div', { class: 'form-grid' }, field('Time', time), field('Room', room)),
+    h('p', { class: 'eyebrow', text: 'Repeats every week on' }),
+    h('div', { class: 'btn-row', style: 'flex-wrap:nowrap;gap:4px' }, dayBtns),
+    h('button', { class: 'btn yellow block', text: 'Add class', onclick: async () => {
+      if (!title.value.trim()) return toast('Give the class a name');
+      if (!picked.size) return toast('Pick at least one day');
+      try {
+        const cls = await api('/timetable', {
+          method: 'POST',
+          body: { title: title.value.trim(), time: time.value || '09:00', room: room.value.trim(), days: [...picked] },
+        });
+        state.timetable.push(cls);
+        closeSheet();
+        renderAll();
+      } catch (e) { toast(e.message); }
+    } }),
+  ]);
+};
+
+
+const SCREENS = ['home', 'admin', 'vault', 'money', 'study'];
+
+function renderAll() {
+  if (!state) return;
+  renderHome();
+  renderAdmin();
+  renderVault();
+  renderMoney();
+  renderStudy();
+  refreshInsights();
+}
+
+function go(name) {
+  if (!SCREENS.includes(name)) name = 'home';
+  if (location.hash !== `#/${name}`) { location.hash = `#/${name}`; return; }
+  showScreen(name);
+}
+
+function showScreen(name) {
+  if (!token) return showAuth();
+  if (!SCREENS.includes(name)) name = 'home';
+  SCREENS.forEach(s => {
+    const el = $('#screen-' + s);
+    if (el) el.classList.toggle('active', s === name);
+  });
+  document.querySelectorAll('.nav a').forEach(a => {
+    if (a.dataset.go === name) a.setAttribute('aria-current', 'page');
+    else a.removeAttribute('aria-current');
+  });
+  const screen = $('#screen-' + name);
+  if (screen) {
+    screen.scrollTop = 0;
+    const title = $('.title', screen);
+    if (title) title.focus({ preventScroll: true });
+  }
+  if (!overlay.hidden) closeSheet();
+}
+
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-go]:not(a)');
+  if (t) go(t.dataset.go);
+});
+window.addEventListener('hashchange', () => {
+  if (token) showScreen(location.hash.replace('#/', '') || 'home');
+});
+
+// Boot
+(async function start() {
+ 
+  const nav = $('.nav');
+  if (nav) nav.style.display = 'none';
+
+  if (token) {
+    try {
+      await loadState();
+      hideAuth();
+      showScreen(location.hash.replace('#/', '') || 'home');
+    } catch (e) {
+      logout(true);
+    }
+  } else {
+    showAuth();
+  }
+})();
+</script>
+</body>
+</html>
